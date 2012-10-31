@@ -487,7 +487,7 @@ L.TileLayer.GeoJSON = L.TileLayer.extend({
 
         $.ajax({
             url: url,
-            dataType: 'json',
+            dataType: 'jsonp',
 
             success: function(data) {
                 // convert each feature of the geojson object to a layer
