@@ -9,6 +9,8 @@
     <link href="vendor/leaflet/leaflet.ie.css" rel="stylesheet" type="text/css">
     <script src='vendor/leaflet/leaflet.js'></script>
     <script src='vendor/jquery-1.8.2.min.js'></script>
+    <script src='vendor/TileLayer.GeoJSON.js'></script>
+    <script src='vendor/underscore-min.js'></script>
     <script src='app.js'></script>
   </head>
   <body>
@@ -16,22 +18,18 @@
     <div id='sidebar'>
       <!--todo-->
       <h3>Changesets</h3>
-      <div class='changesets'>
-        <div class='changeset'>
-          <div class='id'><a href='http://www.openstreetmap.org/browse/changeset/13672116'>#13672116</a></div>
-          <div class='date'>October 29, 2012 10:36</div>
-          <div class='comment'>Ajout aires de service</div>
-          <div class='user'><a href='http://www.openstreetmap.org/user/joedalton85'>joedalton85</a></div>
-        </div>
-        <div class='changeset'>
-          <div class='id'><a href='http://www.openstreetmap.org/browse/changeset/13671866'>#13671866</a></div>
-          <div class='date'>October 29, 2012 10:10</div>
-          <div class='comment'>Corr tag religion/denomination</div>
-          <div class='user'><a href='http://www.openstreetmap.org/user/cgu66'>cgu66</a></div>
-        </div>
+      <div id='changesets'>
       </div>
     </div>
     <div id='map'></div>
     <div id='footer'>OpenStreetMap Watchlist - Resurrection Branch</div>
+    <script name="changeset" type="text/html">
+      <div class='changeset'>
+        <div class='id'><a href='http://www.openstreetmap.org/browse/changeset/<%=changeset_id%>'>#<%=changeset_id%></a></div>
+        <div class='date'><%=created_at%></div>
+        <div class='comment'>Corr tag religion/denomination</div>
+        <div class='user'><a href='http://www.openstreetmap.org/user/<%=user_name%>'><%=user_name%></a></div>
+      </div>
+    </script>
   </body>
 </html>
