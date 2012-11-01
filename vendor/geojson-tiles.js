@@ -1,4 +1,5 @@
 // Load tiled GeoJSON and merge into single features array.
+// Requires jQuery for jsonp.
 L.TileLayer.GeoJSON = L.TileLayer.extend({
     data: null,
     _addTile: function(tilePoint, container) {
