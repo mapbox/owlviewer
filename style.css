@@ -71,7 +71,8 @@ a {
   position: absolute;
   left: 0;
   top: 40px;
-  bottom: 0;
+  bottom: 25px;
+  overflow: auto;
   width: 280px;
   padding: 0 10px;
   }
