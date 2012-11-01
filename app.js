@@ -25,7 +25,6 @@ $(function() {
         location.hash = c.lat + '/' + c.lng + '/' + map.getZoom();
     });
 
-    // Display changesets
     // Add GeoJSON feature layer
     var geoJSONLayer = new L.GeoJSON(null, {
         pointToLayer: function(featureData, latlng) {
@@ -57,7 +56,7 @@ $(function() {
     });
     map.addLayer(geoJSONLayer);
 
-    // Add tile loader for GeoJSON
+    // Add loader for tiled GeoJSON
     var geoJSON = new L.TileLayer.GeoJSON(
         'http://localhost:3000/changesets/{z}/{x}/{y}.geojson'
     );
@@ -65,8 +64,10 @@ $(function() {
         $('#changesets').html('loading...');
     });
     geoJSON.on('load', function(e) {
+
         // Add data to geoJSON layer
         geoJSONLayer.addData(geoJSON.data);
+
         // Popuplate changeset list
         $('#changesets').empty();
         _(geoJSON.data.features)
