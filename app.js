@@ -6,7 +6,15 @@ $(function() {
     }, {});
 
     // Set up map
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    var map = L.map('map', {
+        center: [51.505, -0.09],
+        zoom: 13,
+        minZoom: 2,
+        maxBounds: [
+            [82, 180],
+            [-82, -180]
+        ]
+    });
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '<a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
     }).addTo(map);
