@@ -88,12 +88,16 @@ a {
 -------------------------------------------------------- */
 
 .changeset {
-  background-color: #f5f5f5;
+  background-color: #fafafa;
   line-height: 20px;
   padding: 5px;
   border: 1px solid #f0f0f0;
   border-radius: 5px;
   margin-bottom: 5px;
+  transition: .5s background-color;
+  }
+  .changeset.highlight {
+    background-color: #eeeeff;
   }
 .changeset .id {
   float: left;

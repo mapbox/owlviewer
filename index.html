@@ -7,9 +7,9 @@
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="vendor/leaflet/leaflet.css" rel="stylesheet" type="text/css">
     <link href="vendor/leaflet/leaflet.ie.css" rel="stylesheet" type="text/css">
-    <script src='vendor/leaflet/leaflet.js'></script>
+    <script src='vendor/leaflet/leaflet-src.js'></script>
     <script src='vendor/jquery-1.8.2.min.js'></script>
-    <script src='vendor/TileLayer.GeoJSON.js'></script>
+    <script src='vendor/geojson-tiles.js'></script>
     <script src='vendor/underscore-min.js'></script>
     <script src='app.js'></script>
   </head>
@@ -24,7 +24,7 @@
     <div id='map'></div>
     <div id='footer'>OpenStreetMap Watchlist - Resurrection Branch</div>
     <script name="changeset" type="text/html">
-      <div class='changeset'>
+      <div class='changeset' id='changeset-<%=changeset_id%>'>
         <div class='id'><a href='http://www.openstreetmap.org/browse/changeset/<%=changeset_id%>'>#<%=changeset_id%></a></div>
         <div class='date'><%=created_at%></div>
         <div class='comment'></div>

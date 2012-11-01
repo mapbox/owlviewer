@@ -26,32 +26,48 @@ $(function() {
     });
 
     // Display changesets
-    var geojsonLayer = new L.TileLayer.GeoJSON(
-        'http://localhost:3000/changesets/{z}/{x}/{y}.geojson', {
-            tileSize: 256,
-            unloadInvisibleTiles: true
-        });
-    geojsonLayer.setGeoJSONOptions({
-        pointToLayer: function(featureData, latlng) {},
-        /* style of GeoJSON feature */
+    // Add GeoJSON feature layer
+    var geoJSONLayer = new L.GeoJSON(null, {
+        pointToLayer: function(featureData, latlng) {
+            return new L.Polyline([latlng]);
+        },
         style: {
             "color": "yellow",
             "fillColor": "yellow",
-            "weight": 8,
+            "weight": 10,
             "opacity": 0.75,
             "fillOpacity": 0.75
         },
-        /* style of GeoJSON feature when hovered */
-        hoverStyle: {
-            "color": "blue",
-            "opacity": 0.2,
-            "fillOpacity": 0.2
-        },
-        hoverOffset: new L.Point(30, -16)
+        onEachFeature: function (feature, layer) {
+            var style = this.style;
+            var id = '#changeset-' + feature.properties.changeset_id;
+            layer.on('mouseover', function() {
+                layer.setStyle({
+                    "color": "blue",
+                    "opacity": 0.2,
+                    "fillOpacity": 0.2
+                });
+                $(id).addClass('highlight');
+            });
+            layer.on('mouseout', function() {
+                layer.setStyle(style);
+                $(id).removeClass('highlight');
+            });
+        }
     });
-    geojsonLayer.on('load', function(e) {
+    map.addLayer(geoJSONLayer);
+
+    // Add tile loader for GeoJSON
+    var geoJSON = new L.TileLayer.GeoJSON(
+        'http://localhost:3000/changesets/{z}/{x}/{y}.geojson'
+    );
+    geoJSON.on('loading', function(e) {
+        $('#changesets').html('loading...');
+    });
+    geoJSON.on('load', function(e) {
+        geoJSONLayer.addData(geoJSON.data);
         $('#changesets').empty();
-        _(e.target._geoJSONFeatures)
+        _(geoJSON.data.features)
             .chain()
             .reduce(function(m, f) {
                 m[f.properties.changeset_id] = f.properties;
@@ -61,9 +77,5 @@ $(function() {
                 $('#changesets').append(templates.changeset(p));
             });
     });
-    geojsonLayer.on('loading', function(e) {
-        $('#changesets').html('loading...');
-    });
-
-    map.addLayer(geojsonLayer);
+    map.addLayer(geoJSON);
 });
