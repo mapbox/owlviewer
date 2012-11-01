@@ -1,9 +1,11 @@
 $(function() {
+    // Set up templates
     var templates = _($('script[name]')).reduce(function(memo, el) {
         memo[el.getAttribute('name')] = _(el.innerHTML).template();
         return memo;
     }, {});
 
+    // Set up map
     var map = L.map('map').setView([51.505, -0.09], 13);
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '<a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
@@ -24,13 +26,11 @@ $(function() {
     });
 
     // Display changesets
-    // Example http://localhost:3000/changesets/11/1017/670.geojson?callback=cb
-    var geojsonURL = 'http://localhost:3000/changesets/{z}/{x}/{y}.geojson';
-    var geojsonLayer = new L.TileLayer.GeoJSON(geojsonURL, {
-        tileSize: 256,
-        unloadInvisibleTiles: true
-    });
-
+    var geojsonLayer = new L.TileLayer.GeoJSON(
+        'http://localhost:3000/changesets/{z}/{x}/{y}.geojson', {
+            tileSize: 256,
+            unloadInvisibleTiles: true
+        });
     geojsonLayer.setGeoJSONOptions({
         pointToLayer: function(featureData, latlng) {},
         /* style of GeoJSON feature */
@@ -49,7 +49,6 @@ $(function() {
         },
         hoverOffset: new L.Point(30, -16)
     });
-
     geojsonLayer.on('load', function(e) {
         $('#changesets').empty();
         _(e.target._geoJSONFeatures)
@@ -62,7 +61,6 @@ $(function() {
                 $('#changesets').append(templates.changeset(p));
             });
     });
-
     geojsonLayer.on('loading', function(e) {
         $('#changesets').html('loading...');
     });
