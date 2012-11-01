@@ -19,19 +19,9 @@ $(function() {
         attribution: '<a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
     }).addTo(map);
 
-    // Location tracking in hash.
-    if (location.hash && location.hash.indexOf('#') === 0) {
-        var e = location.hash.substring(1).split('/');
-        if (e.length == 3) {
-            map.setView(
-                new L.LatLng(parseFloat(e[0]), parseFloat(e[1])),
-                parseFloat(e[2]));
-        }
-    }
-    map.on('moveend', function() {
-        var c = map.getCenter();
-        location.hash = c.lat + '/' + c.lng + '/' + map.getZoom();
-    });
+    map.attributionControl.setPrefix('');
+
+    new L.Hash(map);
 
     // Add GeoJSON feature layer
     var geoJSONLayer = new L.GeoJSON(null, {
