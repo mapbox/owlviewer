@@ -65,7 +65,9 @@ $(function() {
         $('#changesets').html('loading...');
     });
     geoJSON.on('load', function(e) {
+        // Add data to geoJSON layer
         geoJSONLayer.addData(geoJSON.data);
+        // Popuplate changeset list
         $('#changesets').empty();
         _(geoJSON.data.features)
             .chain()
