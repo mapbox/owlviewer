@@ -59,7 +59,7 @@ $(function() {
         'http://localhost:3000/changesets/{z}/{x}/{y}.geojson'
     );
     geoJSON.on('loading', function(e) {
-        $('#changesets').html('loading...');
+        $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
     geoJSON.on('load', function(e) {
 

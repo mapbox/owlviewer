@@ -420,8 +420,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="518.36489"
-     inkscape:cy="483.81595"
+     inkscape:cx="121.5164"
+     inkscape:cy="314.40868"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -4224,40 +4224,35 @@
        width="25"
        id="rect7964"
        style="color:#000000;fill:#9ed485;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate" />
-    <rect
-       style="color:#000000;fill:#d2c7d6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate"
-       id="rect9206"
-       width="40"
-       height="40.000004"
-       x="-260"
-       y="892.36218"
-       rx="4.9999976"
-       ry="4.9999976" />
-    <image
-       y="886.36218"
-       x="-210"
-       id="image9257"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD4AAAAyCAIAAACLYf9oAAAAA3NCSVQICAjb4U/gAAADPElEQVRo
-ge2Yy3LjRBSG/77qFsUee5gBihXvwJ4FT5jnmcXseQUWMwUkJHiMHVmy3JfTLBRMpkI8Rq0qVar0
-rbrL3T6fpePTp5pdXV3hZcLHFujPpD4Gk/oYTOpjMKmPwQtWl/22/fjDTyc+1ameLUoA23VlDzaE
-8NzK9z+/6yeA3uonUFp99/03eZkDKOcXv/5ybY0dPAqGShjG2HFcXGadN4C8zIvLbJAQT4l96kKK
-xZt5kiXe+9X12hpL/rP06KacM6mkTrVpjTkM8xJi1Rdv5suvF8fpHx/v6qrZrLbz1zMAm9W2rhoA
-Uqs0SwDoVAMYxD5KnTGWFulxmuYpF9w7f/PxdrPaAtjXrXeeMSaEICLOOeec8WGyNEo9hGBaU/yT
-2fZgyRMA7/xuWz9eRkSKP8QKRJwzomfLzpnEJsz6dsMFz/LUHOyf15+eq4POuhCCTpRpjbMu3hvx
-6s66mw+3QgoA3vnnlnnnyZNpDWPsRJn/X/RXV1olmQZQ3zcnpI8cjXWiAHhP3n951wl6qiutvvp2
-mZcZgGqzW92sz7HnnCVZqrTkgjnr93XbL/rDt/XblhVp5w2gKHOpznoEQsok11ILLrjSUoioUtNz
-M5efbeTn1TsiIkcAiEIAInO+p3q9bfb1/mFcNW1z1qsnT0TUFVBy5KzrF72jZ65bY+9++5Rk2hrX
-Fb5zdoUQ6vtGaQnAmihvxFQYZ52zrjs+hRTk6Ys/oDuJxu9hQghdw7h4O8+KdF+3u21jWvOfi4UU
-RZlLLZzx1WbXO+hjYo+k2bKcL2cBSNJESnn3++rpGsZYUebZRQpAaQWg2uziD6bYHkZpZa2TShKR
-SmSXEoyxrkMkT9ZYxqBTFSn6lNgmbr9rpZLOOsa5aS1RUFrNluXy7av568tiljPGiIJp/81va879
-W58mNmHqquGC6UTXrq7+qgFwwfOLHIAQIi+y/a497A9dfnPJ97u262TGV/fOb1b3x+kJp87++Oc+
-Dnoz8GVGCMFZZ41lHACssY/PnS5PQgjHQUys4W8EvPPru01+kZmDddZ1bVn8M35KT/WY+5OheMG3
-X5P6GEzqYzCpj8GkPgaT+hhM6mPwgtX/BoZEp3B4EOYuAAAAAElFTkSuQmCC
-"
-       height="50"
-       width="62"
-       clip-path="url(#clipPath9262)"
-       transform="translate(-60,3.0000019)" />
+    <g
+       id="g10054">
+      <path
+         transform="matrix(1.5333337,0,0,1.5333337,-424.00005,7.6952383)"
+         d="m 135,590 a 15,15 0 1 1 -30,0 15,15 0 1 1 30,0 z"
+         sodipodi:ry="15"
+         sodipodi:rx="15"
+         sodipodi:cy="590"
+         sodipodi:cx="120"
+         id="path9272"
+         style="color:#000000;fill:#312c33;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate"
+         sodipodi:type="arc" />
+      <path
+         transform="translate(-360,322.36218)"
+         inkscape:connector-curvature="0"
+         id="path10052"
+         d="m 132,602 18,18"
+         style="color:#000000;fill:#d2c7d6;fill-opacity:1;fill-rule:nonzero;stroke:#312c33;stroke-width:6;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:round" />
+      <path
+         sodipodi:type="arc"
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate"
+         id="path9274"
+         sodipodi:cx="120"
+         sodipodi:cy="590"
+         sodipodi:rx="15"
+         sodipodi:ry="15"
+         d="m 135,590 a 15,15 0 1 1 -30,0 15,15 0 1 1 30,0 z"
+         transform="matrix(1.1999985,0,0,1.1999985,-383.99982,204.36306)" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
