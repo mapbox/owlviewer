@@ -19,22 +19,30 @@
     <div id='sidebar'>
 
       <div id='header'>
-        <div class='inner'>
+        <div class='inner branding'>
           <div class='logo'></div>
           <h1>OpenStreetMap Changeset Browser</h1>
         </div>
         <div class='inner'>
+          <a class='info-button' href='#'></a>
           <h2>Browse recent contributions to the map</h2>
         </div>
       </div>
 
-      <div id='changesets'>
+      <div class='content'>
+        <div id='changesets'>
+        </div>
       </div>
 
     </div>
-    <div id='map'></div>
+    <div class='nav-container editor'>
+      <a href='#' class='nav-link'></a>
+    </div>
+    <div class='nav-container info'>
+      <a href='#' class='nav-link'></a>
+    </div>
 
-<!--     <div id='footer'>OpenStreetMap Watchlist - Resurrection Branch</div> -->
+    <div id='map'></div>
 
     <script name="changeset" type="text/html">
       <div class='changeset inner' id='changeset-<%=changeset_id%>'>

@@ -28,16 +28,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="-1.1507151"
-     inkscape:cy="101.68922"
+     inkscape:zoom="2"
+     inkscape:cx="90.566427"
+     inkscape:cy="119.14295"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="992"
      inkscape:window-height="786"
-     inkscape:window-x="559"
-     inkscape:window-y="20"
+     inkscape:window-x="1034"
+     inkscape:window-y="28"
      inkscape:window-maximized="0"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="false"
@@ -74,6 +74,10 @@
        orientation="0,1"
        position="20,-75"
        id="guide3772" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="12,198"
+       id="guide9268" />
   </sodipodi:namedview>
   <metadata
      id="metadata3491">
@@ -104,7 +108,8 @@
        inkscape:export-ydpi="90" />
     <g
        id="g3768"
-       transform="translate(25,-85)">
+       transform="translate(25,-85)"
+       style="fill:#ffffff">
       <rect
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -211,29 +216,20 @@
     </g>
     <g
        id="g4106-3"
-       transform="translate(161,163.5)"
+       transform="translate(162,163.5)"
        inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
-      <path
-         transform="matrix(0.35355289,0.3535528,-0.3535529,0.3535528,-172.21316,292.29373)"
-         d="m 130,50 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
-         sodipodi:ry="20"
-         sodipodi:rx="20"
-         sodipodi:cy="50"
-         sodipodi:cx="110"
-         id="path4084-8"
-         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         sodipodi:type="arc" />
+       inkscape:export-ydpi="90"
+       style="fill:#ffffff">
       <text
          sodipodi:linespacing="166%"
          id="text4094-9-7"
-         y="353.24817"
-         x="-154.33598"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:165.99999666%;letter-spacing:0px;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#312c33;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:14;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Helvetica Neue LT Std;-inkscape-font-specification:Helvetica Neue LT Std Bold"
+         y="350.86218"
+         x="-160.60191"
+         style="font-size:16.41586875999999862px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:165.99999665999999365%;letter-spacing:0px;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:14;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Helvetica Neue LT Std;-inkscape-font-specification:Helvetica Neue LT Std Bold"
          xml:space="preserve"><tspan
-           y="353.24817"
-           x="-154.33598"
+           y="350.86218"
+           x="-160.60191"
            id="tspan4096-1-5"
            sodipodi:role="line">?</tspan></text>
     </g>
@@ -258,5 +254,11 @@
        inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <g
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
+       transform="translate(191,163.5)"
+       id="g9146" />
   </g>
 </svg>
