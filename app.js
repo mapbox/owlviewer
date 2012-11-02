@@ -79,4 +79,10 @@ $(function() {
             });
     });
     map.addLayer(geoJSON);
+
+        // Non-map
+        $('.nav-container a').click(function() {
+            $(this).parent().toggleClass('active');
+        });
+
 });

@@ -28,12 +28,12 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="90.566427"
-     inkscape:cy="119.14295"
+     inkscape:zoom="1"
+     inkscape:cx="55.816749"
+     inkscape:cy="104.84337"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="true"
+     showgrid="false"
      inkscape:window-width="992"
      inkscape:window-height="786"
      inkscape:window-x="1034"
@@ -41,7 +41,7 @@
      inkscape:window-maximized="0"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="false"
-     showguides="true"
+     showguides="false"
      inkscape:guide-bbox="true"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -132,6 +132,16 @@
          x="737.36218"
          y="-6" />
     </g>
+    <rect
+       style="color:#000000;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect9270"
+       width="136"
+       height="288"
+       x="-106.5"
+       y="440.86218"
+       transform="scale(-1,1)"
+       rx="2.9999974"
+       ry="2.9999974" />
   </g>
   <g
      inkscape:label="sprite"
@@ -247,7 +257,7 @@
     </g>
     <path
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:14;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 9,602.36218 -7,7 3,3 7,-7 0,-1 -2,-2 z m -8,8 -1,4 4,-1 z"
+       d="m 8,603.36218 -6,6 3,3 6,-6 0,-1 -2,-2 z m -7,7 -1,4 4,-1 z"
        id="path4962-0-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccc"
