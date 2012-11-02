@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Changesets</title>
-    <link href="reset.css" rel="stylesheet" type="text/css">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="vendor/leaflet/leaflet.css" rel="stylesheet" type="text/css">
     <link href="vendor/leaflet/leaflet.ie.css" rel="stylesheet" type="text/css">
     <script src='vendor/leaflet/leaflet-src.js'></script>
@@ -14,23 +14,36 @@
     <script src='geojson-tiles.js'></script>
     <script src='app.js'></script>
   </head>
+
   <body>
-    <div id='header'>OpenStreetMap Changeset Browser</div>
     <div id='sidebar'>
-      <!--todo-->
-      <h3>Changesets</h3>
+
+      <div id='header'>
+        <div class='inner'>
+          <div class='logo'></div>
+          <h1>OpenStreetMap Changeset Browser</h1>
+        </div>
+        <div class='inner'>
+          <h2>Browse recent contributions to the map</h2>
+        </div>
+      </div>
+
       <div id='changesets'>
       </div>
+
     </div>
     <div id='map'></div>
-    <div id='footer'>OpenStreetMap Watchlist - Resurrection Branch</div>
+
+<!--     <div id='footer'>OpenStreetMap Watchlist - Resurrection Branch</div> -->
+
     <script name="changeset" type="text/html">
-      <div class='changeset' id='changeset-<%=changeset_id%>'>
-        <div class='id'><a href='http://www.openstreetmap.org/browse/changeset/<%=changeset_id%>'>#<%=changeset_id%></a></div>
-        <div class='date'><%=created_at%></div>
+      <div class='changeset inner' id='changeset-<%=changeset_id%>'>
+        <div class='date'><span class='icon clock'></span><%=created_at%></div>
+        <a class='id' href='http://www.openstreetmap.org/browse/changeset/<%=changeset_id%>'>#<%=changeset_id%></a>
         <div class='comment'></div>
-        <div class='user'><a href='http://www.openstreetmap.org/user/<%=user_name%>'><%=user_name%></a></div>
+        <div class='user'>by <a href='http://www.openstreetmap.org/user/<%=user_name%>'><strong><%=user_name%></strong></a></div>
       </div>
     </script>
+
   </body>
 </html>

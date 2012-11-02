@@ -1,0 +1,139 @@
+
+/* --------------------------------------------------------
+  Typographhy
+-------------------------------------------------------- */
+body {
+  font: normal 12px/1.6666 'Helvetica Neue',Helvetica,Verdana,Arial,sans-serif;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  }
+h1,h2,h3,h4,h5,h6 {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  }
+h1 {
+  font-size: 14px;
+  font-weight: bold;
+  }
+h2 {
+  font-size: 12px;
+  font-style: italic;
+  }
+h3 {
+  font-size: 12px;
+  }
+p {
+  margin: 0 0 20px;
+  }
+a {
+  text-decoration: none;
+  color: #9854b4;
+  }
+  a:hover {
+    color: #b063d0;
+    text-decoration: underline;
+  }
+
+strong { font-weight: bold;}
+em { font-style: italic;}
+
+/* --------------------------------------------------------
+  Utility Classes
+-------------------------------------------------------- */
+
+.icon {
+  height: 12px;
+  width: 12px;
+  padding-right: 5px;
+  margin: -2px 0;
+  display: inline-block;
+  background: url(../img/sprite.png) 0 0 no-repeat;
+  }
+
+.inner {
+  border-bottom: 1px solid #947a9d;
+  padding: 20px;
+  }
+
+/* --------------------------------------------------------
+  Layout
+-------------------------------------------------------- */
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 240px;
+  bottom: 0;
+  right: 0;
+  }
+#sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 239px;
+  border-right: 1px solid #634e6a;
+  background: #f2eff3 url(../img/dotgrid.png) 0 0 repeat;
+  z-index: 100;
+  overflow: hidden;
+  }
+
+#header {
+  position: relative;
+  color: white;
+  background-color: #312c33;
+  z-index: 1;
+  }
+
+#changesets {
+  overflow: auto;
+  background: white;
+  box-shadow: 0px -40px 40px 30px black;
+}
+
+#changesets .inner {
+  border-color: #d2c7d6;
+}
+
+/* --------------------------------------------------------
+  Changesets
+-------------------------------------------------------- */
+
+.changeset {
+  transition: all .3s;
+  -moz-transition: all .3s;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  }
+  .changeset.highlight {
+    background-color: #ffffda;
+    box-shadow: inset 0 0 0 10px #fef0c7;
+    }
+.changeset .id {
+  display: block;
+  position: relative;
+  font-size: 20px;
+  float: left;
+  }
+  .changeset .id::after {
+    content:'';
+    position: absolute;
+    display: block;
+    right: -10px;
+    top: 12px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #9854b4;
+  }
+  .changeset:hover .id::after { border-left-color: #b063d0;}
+
+.changeset .icon.clock {
+  background-position: 0 -100px;
+}
+
+.changeset .comment {
+  clear: left;
+  }
