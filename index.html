@@ -37,18 +37,21 @@
     </div>
     <div class='nav-container editor'>
       <a href='#' class='nav-link'></a>
-      <ul class='overlay'>
-        <li><a class='inner' href='#'>Edit in <strong>Potlatch II</strong></a></li>
-        <li><a class='inner' href='#'>Edit in <strong>JOSM</strong></a></li>
+      <ul class='overlay inner'>
+        <li><a class='button hover-glow' href='#'>Edit in <strong>Potlatch II</strong></a></li>
+        <li><a class='button hover-glow' href='#'>Edit in <strong>JOSM</strong></a></li>
       </ul>
     </div>
 
-    <div class='nav-container info'>
+    <div class='nav-container info active'>
       <a href='#' class='nav-link'></a>
       <div class='overlay'>
         <div class='inner'>
-          <h3>About This Project</h3>
+          <a href='#' class='close-button'></a>
+          <h3>The OpenStreetMap Changeset Browser</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <a class='button hover-glow' href="https://github.com/ppawel/openstreetmap-watch-list">Contribute on <strong>GitHub</strong></a>
+          <a class='button hover-glow' href="http://www.openstreetmap.org/">Join <strong>OpenStreetMap</strong></a>
         </div>
       </div>
     </div>
@@ -56,7 +59,7 @@
     <div id='map'></div>
 
     <script name="changeset" type="text/html">
-      <div class='changeset inner' id='changeset-<%=changeset_id%>'>
+      <div class='changeset inner hover-glow' id='changeset-<%=changeset_id%>'>
         <div class='date'><span class='icon clock'></span><%=created_at%></div>
         <a class='id' href='http://www.openstreetmap.org/browse/changeset/<%=changeset_id%>'>#<%=changeset_id%></a>
         <div class='comment'></div>

@@ -28,11 +28,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="-6.9030872"
-     inkscape:cy="15.423639"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="15.361099"
+     inkscape:cy="208.25157"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1279"
      inkscape:window-height="874"
@@ -40,13 +40,14 @@
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:snap-bbox="true"
-     inkscape:snap-nodes="false"
+     inkscape:snap-nodes="true"
      showguides="false"
      inkscape:guide-bbox="true"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0">
+     fit-margin-bottom="0"
+     borderlayer="true">
     <inkscape:grid
        type="xygrid"
        id="grid3510"
@@ -82,6 +83,14 @@
        orientation="0,1"
        position="-20,60"
        id="guide10130" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="24,263"
+       id="guide10781" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="22,248"
+       id="guide10783" />
   </sodipodi:namedview>
   <metadata
      id="metadata3491">
@@ -99,21 +108,64 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="base"
-     transform="translate(0,-452.36218)">
+     transform="translate(0,-452.36218)"
+     style="display:none">
     <rect
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect10128"
+       width="25"
+       height="50"
+       x="-55"
+       y="652.36218" />
+    <rect
+       style="color:#000000;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect10705"
+       width="93.5"
+       height="421"
+       x="-12"
+       y="-21.5"
+       transform="translate(0,452.36218)" />
+  </g>
+  <g
+     inkscape:label="sprite"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-452.36218)">
+    <g
+       transform="translate(340,25)"
+       id="g7565"
+       inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g7569"
+         transform="matrix(0.8,0,0,0.8,359.2,-219.12756)">
+        <g
+           transform="matrix(0.5,0,0,0.5,-1267.5,868.36218)"
+           id="g7571" />
+      </g>
+    </g>
+    <g
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
+       transform="translate(191,163.5)"
+       id="g9146" />
+    <rect
+       transform="translate(0,2.6171875e-6)"
        y="656.36218"
        x="0"
        height="2.000001"
        width="10"
        id="rect6417"
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="enable-background:accumulate;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible"
        inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <g
        id="g3768"
-       transform="translate(25,-85)"
-       style="fill:#ffffff">
+       transform="translate(25,-84.999997)"
+       style="enable-background:new;fill:#ffffff">
       <rect
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -137,6 +189,7 @@
          y="-6" />
     </g>
     <g
+       style="enable-background:new"
        transform="translate(256.00001,-193.99993)"
        id="g10054">
       <path
@@ -147,13 +200,13 @@
          sodipodi:cy="590"
          sodipodi:cx="120"
          id="path9272"
-         style="color:#000000;fill:#312c33;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate"
+         style="color:#000000;fill:#9854b4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate"
          sodipodi:type="arc" />
       <path
          inkscape:connector-curvature="0"
          id="path10052"
          d="m -240,912.36218 18,18"
-         style="color:#000000;fill:#d2c7d6;fill-opacity:1;fill-rule:nonzero;stroke:#312c33;stroke-width:6;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate" />
+         style="color:#000000;fill:#d2c7d6;fill-opacity:1;fill-rule:nonzero;stroke:#9854b4;stroke-width:6;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate" />
       <path
          sodipodi:type="arc"
          style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter9881-5-4);enable-background:accumulate"
@@ -165,34 +218,8 @@
          d="m 135,590 c 0,8.28427 -6.71573,15 -15,15 -8.28427,0 -15,-6.71573 -15,-15 0,-8.28427 6.71573,-15 15,-15 8.28427,0 15,6.71573 15,15 z"
          transform="matrix(0.80000416,0,0,0.80000416,-336.0005,440.35972)" />
     </g>
-    <rect
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect10128"
-       width="25"
-       height="50"
-       x="-55"
-       y="652.36218" />
-  </g>
-  <g
-     inkscape:label="sprite"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-452.36218)">
     <g
-       transform="translate(340,25)"
-       id="g7565"
-       inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
-      <g
-         id="g7569"
-         transform="matrix(0.8,0,0,0.8,359.2,-219.12756)">
-        <g
-           transform="matrix(0.5,0,0,0.5,-1267.5,868.36218)"
-           id="g7571" />
-      </g>
-    </g>
-    <g
+       style="enable-background:new"
        transform="translate(343.99998,119)"
        id="g3545">
       <path
@@ -212,14 +239,14 @@
          sodipodi:cy="50"
          sodipodi:rx="20"
          sodipodi:ry="20"
-         d="m 130,50 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
+         d="m 130,50 c 0,11.045695 -8.95431,20 -20,20 -11.045695,0 -20,-8.954305 -20,-20 0,-11.045695 8.954305,-20 20,-20 11.04569,0 20,8.954305 20,20 z"
          transform="matrix(0.70000011,0,-1.5839196e-8,0.69999983,-401.99999,317.36219)" />
       <path
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
          inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
          transform="matrix(0.44999788,-9.4263976e-4,-9.4263976e-4,0.44999774,-374.45261,329.96598)"
-         d="m 130,50 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
+         d="m 130,50 c 0,11.045695 -8.95431,20 -20,20 -11.045695,0 -20,-8.954305 -20,-20 0,-11.045695 8.954305,-20 20,-20 11.04569,0 20,8.954305 20,20 z"
          sodipodi:ry="20"
          sodipodi:rx="20"
          sodipodi:cy="50"
@@ -238,7 +265,7 @@
          sodipodi:cy="50"
          sodipodi:rx="20"
          sodipodi:ry="20"
-         d="m 130,50 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
+         d="m 130,50 c 0,11.045695 -8.95431,20 -20,20 -11.045695,0 -20,-8.954305 -20,-20 0,-11.045695 8.954305,-20 20,-20 11.04569,0 20,8.954305 20,20 z"
          transform="matrix(0.24999938,-5.236906e-4,-5.2369704e-4,0.24999938,-352.47373,339.91982)" />
       <path
          inkscape:export-ydpi="90"
@@ -251,7 +278,7 @@
          sodipodi:cy="50"
          sodipodi:rx="20"
          sodipodi:ry="20"
-         d="m 130,50 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
+         d="m 130,50 c 0,11.045695 -8.95431,20 -20,20 -11.045695,0 -20,-8.954305 -20,-20 0,-11.045695 8.954305,-20 20,-20 11.04569,0 20,8.954305 20,20 z"
          transform="matrix(0.15909909,0.15909909,-0.15909909,0.15909909,-330.04595,322.40632)" />
     </g>
     <g
@@ -260,7 +287,7 @@
        inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
-       style="fill:#ffffff">
+       style="enable-background:new;fill:#ffffff">
       <text
          sodipodi:linespacing="166%"
          id="text4094-9-7"
@@ -274,8 +301,9 @@
            sodipodi:role="line">?</tspan></text>
     </g>
     <g
+       style="enable-background:new"
        id="g7241"
-       transform="translate(444,-11)"
+       transform="translate(444,-10.999997)"
        inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
@@ -286,7 +314,8 @@
          inkscape:connector-curvature="0" />
     </g>
     <path
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:14;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       transform="translate(0,2.6171875e-6)"
+       style="enable-background:accumulate;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:14;marker:none;visibility:visible;display:inline;overflow:visible"
        d="m 8,603.36218 -6,6 3,3 6,-6 0,-1 -2,-2 z m -7,7 -1,4 4,-1 z"
        id="path4962-0-1"
        inkscape:connector-curvature="0"
@@ -295,10 +324,15 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <g
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       inkscape:export-filename="/Users/saman/Desktop/mock-up.png"
-       transform="translate(191,163.5)"
-       id="g9146" />
+       transform="matrix(1.4142133,0,0,1.4142133,-7.426386,-279.79578)"
+       style="enable-background:new"
+       id="g10727">
+      <path
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m 22.693219,553.77641 -1.178511,1.17851 2.357023,2.35702 -2.357023,2.35703 1.178511,1.17851 2.357023,-2.35702 2.357024,2.35702 1.178511,-1.17851 -2.357023,-2.35703 2.357023,-2.35702 -1.178511,-1.17851 -2.357024,2.35702 z"
+         id="rect6417-7"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccccccccccc" />
+    </g>
   </g>
 </svg>

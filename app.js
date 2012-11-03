@@ -85,4 +85,8 @@ $(function() {
             $(this).parent().toggleClass('active');
         });
 
+         $('a.close-button').click(function() {
+            $(this).parents().removeClass('active');
+        });
+
 });
