@@ -81,16 +81,16 @@ $(function() {
     map.addLayer(geoJSON);
 
         // Non-map
-        $('.nav-container').click(function() {
-            if ($(this).hasClass('active')) {
+        $('.nav-container a').click(function() {
+            if ($(this).parent().hasClass('active')) {
                 $('.nav-container').removeClass('active');
             } else {
                 $('.nav-container').removeClass('active');
-                $(this).addClass('active');
+                $(this).parent().addClass('active');
             }
         });
 
-        $('.nav-container').click(function(event){
+        $('.nav-container').mousedown(function(event){
             event.stopPropagation();
         });
 

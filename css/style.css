@@ -203,15 +203,26 @@ em { font-style: italic;}
 .overlay {
   position: absolute;
   background: white;
-  display: none;
-  right: 50px;
+  display: block;
+  z-index: -1;
+  opacity: 0;
+  right: -600px;
   width: 160px;
   top: -10px;
   border: 1px solid #634e6a;
   border-radius: 5px;
   box-shadow: 0 0 20px 0 rgba(0,0,0,.25);
+  -webkit-transition: opacity .5s ease .0s;
+     -moz-transition: opacity .5s ease .0s;
+      -ms-transition: opacity .5s ease .0s;
+       -o-transition: opacity .5s ease .0s;
+          transition: opacity .5s ease .0s;
   }
-  .active .overlay { display: block; }
+  .active .overlay {
+    z-index: 100;
+    opacity: 1;
+    right: 50px;
+  }
 
 .overlay::after {
   content:'';
