@@ -81,12 +81,20 @@ $(function() {
     map.addLayer(geoJSON);
 
         // Non-map
-        $('.nav-container a').click(function() {
-            $(this).parent().toggleClass('active');
+        $('.nav-container').click(function() {
+            if ($(this).hasClass('active')) {
+                $('.nav-container').removeClass('active');
+            } else {
+                $('.nav-container').removeClass('active');
+                $(this).addClass('active');
+            }
         });
 
-         $('a.close-button').click(function() {
-            $(this).parents().removeClass('active');
+        $('.nav-container').click(function(event){
+            event.stopPropagation();
         });
 
+        $('html').mousedown(function() {
+            $('.nav-container').removeClass('active');
+        });
 });

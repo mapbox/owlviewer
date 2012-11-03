@@ -56,18 +56,6 @@ em { font-style: italic;}
   background: url(../img/sprite.png) 0 0 no-repeat;
   }
 
-.close-button {
-  position: absolute;
-  display: block;
-  width: 12px;
-  height: 12px;
-  padding: 5px;
-  top: 20px; right: 20px;
-  border-radius: 4px;
-  background: #9854b4 url(../img/sprite.png) -17px -45px no-repeat;
-  }
-  .close-button:hover { background-color: #b063d0;}
-
 .button {
   display: block;
   font-size: 14px;
@@ -238,12 +226,19 @@ em { font-style: italic;}
   border-left: 10px solid #634e6a;
   }
 
-ul.overlay li { margin-bottom: 20px;}
+ul.overlay li { margin-bottom: 10px;}
 ul.overlay li:last-child { margin-bottom: 0px;}
 
 .info .overlay {
   width: 480px;
 }
+
+.info .button {
+  margin-right: 20px;
+  width: 180px;
+  float: left;
+  }
+  .info .button:last-child { margin-right: 0;}
 
 /* --------------------------------------------------------
   Map
