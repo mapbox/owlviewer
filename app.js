@@ -56,7 +56,9 @@ $(function() {
 
     // Add loader for tiled GeoJSON
     var geoJSON = new L.TileLayer.GeoJSON(
-        'http://localhost:3000/changesets/{z}/{x}/{y}.geojson'
+        'http://localhost:3000/changesets/{z}/{x}/{y}', {
+          minZoomWithGeometry: 16
+        }
     );
     geoJSON.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
@@ -79,6 +81,12 @@ $(function() {
             });
     });
     map.addLayer(geoJSON);
+
+    var owlTiles = new L.TileLayer.OWLSummaryTiles(
+        'http://localhost:3000/summary/{z}/{x}/{y}', {
+        }
+    );
+    map.addLayer(owlTiles);
 
         // Non-map
         $('.nav-container a').click(function() {
