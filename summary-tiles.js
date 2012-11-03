@@ -13,8 +13,6 @@ L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
         this._markers.addTo(map);
     },
 
-    data: null,
-
     _addTile: function(tilePoint, container) {
         if (this._getZoomForUrl() > 10) {
             return;
@@ -28,9 +26,11 @@ L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
             url: this.getTileUrl(tilePoint),
             dataType: 'jsonp',
             success: function(json) {
-                var point = layer._map.layerPointToLatLng(layer._getTilePos(tilePoint));
-                var summaryIcon = L.divIcon({html: '<h3>' + json.num_changesets + '</h3>'});
-                layer._markers.addLayer(L.marker(point, {icon: summaryIcon}));
+                if (json) {
+                    var point = layer._map.layerPointToLatLng(layer._getTilePos(tilePoint));
+                    var summaryIcon = L.divIcon({html: '<h3>' + json.num_changesets + '</h3>'});
+                    layer._markers.addLayer(L.marker(point, {icon: summaryIcon}));
+                }
                 layer._tileLoaded();
             },
             error: function() {
@@ -40,12 +40,12 @@ L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
     },
 
     _resetCallback: function() {
-        this.data = null;
+        this._markers.clearLayers();
         L.TileLayer.prototype._resetCallback.apply(this, arguments);
     },
 
     _update: function() {
-        this.data = null;
+        this._markers.clearLayers();
         L.TileLayer.prototype._update.apply(this, arguments);
     }
 });
