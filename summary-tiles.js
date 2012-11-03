@@ -28,7 +28,11 @@ L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
             success: function(json) {
                 if (json) {
                     var point = layer._map.layerPointToLatLng(layer._getTilePos(tilePoint));
-                    var summaryIcon = L.divIcon({html: '<h3>' + json.num_changesets + '</h3>'});
+                    var summaryIcon = L.divIcon({
+                        html: '<h3>' + json.num_changesets + '</h3>',
+                        className: 'summary-tile',
+                        iconSize: [256, 256]
+                    });
                     layer._markers.addLayer(L.marker(point, {icon: summaryIcon}));
                 }
                 layer._tileLoaded();
