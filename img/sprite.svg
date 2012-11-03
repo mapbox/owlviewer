@@ -30,10 +30,10 @@
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
      inkscape:cx="15.361099"
-     inkscape:cy="208.25157"
+     inkscape:cy="123.39876"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
+     inkscape:current-layer="layer2"
+     showgrid="true"
      inkscape:window-width="1279"
      inkscape:window-height="874"
      inkscape:window-x="435"
@@ -124,6 +124,14 @@
        height="421"
        x="-12"
        y="-21.5"
+       transform="translate(0,452.36218)" />
+    <rect
+       style="color:#000000;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.53333336;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect10787"
+       width="20"
+       height="50"
+       x="0"
+       y="0"
        transform="translate(0,452.36218)" />
   </g>
   <g
