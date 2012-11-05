@@ -49,6 +49,7 @@ L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
     },
 
     _update: function() {
+        if (this._map._panTransition && this._map._panTransition._inProgress) { return; }
         this._markers.clearLayers();
         L.TileLayer.prototype._update.apply(this, arguments);
     }
