@@ -62,13 +62,12 @@ $(function() {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
     geoJSON.on('load', function(e) {
-
-        // Add data to geoJSON layer
-        geoJSONLayer.addData(geoJSON.data);
-
-        // Popuplate changeset list
+        // Add data to geoJSON layer and
+        // populate changeset list
+        var data = geoJSON.geoJSON();
+        geoJSONLayer.addData(data);
         $('#changesets').empty();
-        _(geoJSON.data.features)
+        _(data.features)
             .chain()
             .reduce(function(m, f) {
                 m[f.properties.changeset_id] = f.properties;
