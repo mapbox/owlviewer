@@ -1,7 +1,7 @@
 // Load tiled JSON summary and display markers.
 // Requires jQuery for jsonp.
 L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
-
+    _requests: [],
     initialize: function (url, options) {
         this._url = url;
         this._markers = L.layerGroup();
@@ -17,12 +17,14 @@ L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
         if (this._getZoomForUrl() > 10) {
             return;
         }
-        this._loadTile(null, tilePoint);
+        var tile = { geojson: null };
+        this._tiles[tilePoint.x + ':' + tilePoint.y] = tile;
+        this._loadTile(tile, tilePoint);
     },
 
     _loadTile: function (tile, tilePoint) {
         var layer = this;
-        $.ajax({
+        this._requests.push($.ajax({
             url: this.getTileUrl(tilePoint),
             dataType: 'jsonp',
             success: function(json) {
@@ -40,12 +42,16 @@ L.TileLayer.OWLSummaryTiles = L.TileLayer.extend({
             error: function() {
                 layer._tileLoaded();
             }
-        });
+        }));
     },
 
     _resetCallback: function() {
         this._markers.clearLayers();
         L.TileLayer.prototype._resetCallback.apply(this, arguments);
+        for (i in this._requests) {
+            this._requests[i].abort();
+        }
+        this._requests = [];
     },
 
     _update: function() {
