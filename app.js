@@ -133,3 +133,42 @@ $(function() {
         return false;
     });
 });
+
+// Return a formatted date in local time
+// 11:36 AM, Oct 20, 2012
+Date.prototype.nice = function() {
+    var months = {
+        0: 'Jan',
+        1: 'Feb',
+        2: 'Mar',
+        3: 'Apr',
+        4: 'May',
+        5: 'Jun',
+        6: 'Jul',
+        7: 'Aug',
+        8: 'Sep',
+        9: 'Oct',
+        10: 'Nov',
+        11: 'Dec'
+    };
+    var AMPM = 'AM'
+    var hours = this.getHours();
+    if (hours > 12) {
+        hours = hours - 12;
+        hours = hours == 0 ? 12 : hours;
+        AMPM = 'PM';
+    }
+    var o = '';
+    o += hours;
+    o += ':';
+    o += this.getMinutes();
+    o += ' ';
+    o += AMPM;
+    o += ', ';
+    o += months[this.getMonth()].toUpperCase();
+    o += ' ';
+    o += this.getDate();
+    o += ' ';
+    o += this.getFullYear();
+    return o;
+};
