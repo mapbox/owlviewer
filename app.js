@@ -79,7 +79,7 @@ $(function() {
     });
     map.addLayer(geoJSON);
 
-    // Non-map
+    // Active state handling.
     $('.nav-container a').click(function() {
         if ($(this).parent().hasClass('active')) {
             $('.nav-container').removeClass('active');
@@ -99,5 +99,37 @@ $(function() {
     });
     $('html').bind( "touchstart", function(e){
         $('.nav-container').removeClass('active');
+    });
+
+    // Edit links
+    $('.edit-osm').click(function(e) {
+        var editor = $(e.currentTarget).attr('editor');
+        if (editor == 'remote') {
+            var sw = map.getBounds().getSouthWest();
+            var ne = map.getBounds().getNorthEast();
+            $.ajax({
+                url: 'http://127.0.0.1:8111/load_and_zoom' +
+                    '?left='   + sw.lng +
+                    '&right='  + ne.lng +
+                    '&top='    + ne.lat +
+                    '&bottom=' + sw.lat +
+                    '&new_layer=0',
+                complete: function(response) {
+                    if (response.status != 200) {
+	                    window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
+                    }
+                }
+            });
+        } else {
+            var center = map.getCenter();
+            var zoom   = map.getZoom();
+            window.location =
+                'http://www.openstreetmap.org/edit' +
+                '?editor=' + editor +
+                '&lat='    + center.lat +
+                '&lon='    + center.lng +
+                '&zoom='   + zoom;
+        }
+        return false;
     });
 });
