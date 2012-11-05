@@ -79,29 +79,25 @@ $(function() {
     });
     map.addLayer(geoJSON);
 
-        // Non-map
-        $('.nav-container a').click(function() {
-            if ($(this).parent().hasClass('active')) {
-                $('.nav-container').removeClass('active');
-            } else {
-                $('.nav-container').removeClass('active');
-                $(this).parent().addClass('active');
-            }
-        });
-
-        $('.nav-container').mousedown(function(event){
-            event.stopPropagation();
-        });
-
-        $('html').mousedown(function() {
+    // Non-map
+    $('.nav-container a').click(function() {
+        if ($(this).parent().hasClass('active')) {
             $('.nav-container').removeClass('active');
-        });
-
-        $('.nav-container').bind( "touchstart", function(event){
-            event.stopPropagation();
-        });
-
-        $('html').bind( "touchstart", function(e){
+        } else {
             $('.nav-container').removeClass('active');
-        });
+            $(this).parent().addClass('active');
+        }
+    });
+    $('.nav-container').mousedown(function(event){
+        event.stopPropagation();
+    });
+    $('html').mousedown(function() {
+        $('.nav-container').removeClass('active');
+    });
+    $('.nav-container').bind( "touchstart", function(event){
+        event.stopPropagation();
+    });
+    $('html').bind( "touchstart", function(e){
+        $('.nav-container').removeClass('active');
+    });
 });
