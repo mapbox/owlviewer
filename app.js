@@ -97,4 +97,12 @@ $(function() {
         $('html').mousedown(function() {
             $('.nav-container').removeClass('active');
         });
+
+        $('.nav-container').bind( "touchstart", function(event){
+            event.stopPropagation();
+        });
+
+        $('html').bind( "touchstart", function(e){
+            $('.nav-container').removeClass('active');
+        });
 });
