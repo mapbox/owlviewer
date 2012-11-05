@@ -64,13 +64,12 @@ $(function() {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
     geoJSON.on('load', function(e) {
-
-        // Add data to geoJSON layer
-        geoJSONLayer.addData(geoJSON.data);
-
-        // Popuplate changeset list
+        // Add data to geoJSON layer and
+        // populate changeset list
+        var data = geoJSON.geoJSON();
+        geoJSONLayer.addData(data);
         $('#changesets').empty();
-        _(geoJSON.data.features)
+        _(data.features)
             .chain()
             .reduce(function(m, f) {
                 m[f.properties.changeset_id] = f.properties;
@@ -88,29 +87,57 @@ $(function() {
     );
     map.addLayer(owlTiles);
 
-        // Non-map
-        $('.nav-container a').click(function() {
-            if ($(this).parent().hasClass('active')) {
-                $('.nav-container').removeClass('active');
-            } else {
-                $('.nav-container').removeClass('active');
-                $(this).parent().addClass('active');
-            }
-        });
-
-        $('.nav-container').mousedown(function(event){
-            event.stopPropagation();
-        });
-
-        $('html').mousedown(function() {
+    // Active state handling.
+    $('.nav-container a').click(function() {
+        if ($(this).parent().hasClass('active')) {
             $('.nav-container').removeClass('active');
-        });
-
-        $('.nav-container').bind( "touchstart", function(event){
-            event.stopPropagation();
-        });
-
-        $('html').bind( "touchstart", function(e){
+        } else {
             $('.nav-container').removeClass('active');
-        });
+            $(this).parent().addClass('active');
+        }
+    });
+    $('.nav-container').mousedown(function(event){
+        event.stopPropagation();
+    });
+    $('html').mousedown(function() {
+        $('.nav-container').removeClass('active');
+    });
+    $('.nav-container').bind( "touchstart", function(event){
+        event.stopPropagation();
+    });
+    $('html').bind( "touchstart", function(e){
+        $('.nav-container').removeClass('active');
+    });
+
+    // Edit links
+    $('.edit-osm').click(function(e) {
+        var editor = $(e.currentTarget).attr('editor');
+        if (editor == 'remote') {
+            var sw = map.getBounds().getSouthWest();
+            var ne = map.getBounds().getNorthEast();
+            $.ajax({
+                url: 'http://127.0.0.1:8111/load_and_zoom' +
+                    '?left='   + sw.lng +
+                    '&right='  + ne.lng +
+                    '&top='    + ne.lat +
+                    '&bottom=' + sw.lat +
+                    '&new_layer=0',
+                complete: function(response) {
+                    if (response.status != 200) {
+                      window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
+                    }
+                }
+            });
+        } else {
+            var center = map.getCenter();
+            var zoom   = map.getZoom();
+            window.location =
+                'http://www.openstreetmap.org/edit' +
+                '?editor=' + editor +
+                '&lat='    + center.lat +
+                '&lon='    + center.lng +
+                '&zoom='   + zoom;
+        }
+        return false;
+    });
 });
