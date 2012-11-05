@@ -316,3 +316,12 @@ ul.overlay li:last-child { margin-bottom: 0px;}
 .nav-container.active a.nav-link {
   background-color: #b063d0 !important;
   }
+
+.summary-tile {
+  width: 256px;
+  height: 256px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border:1px solid;
+  text-align: center;
+  vertical-align: middle;
+}

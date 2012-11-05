@@ -56,7 +56,9 @@ $(function() {
 
     // Add loader for tiled GeoJSON
     var geoJSON = new L.TileLayer.GeoJSON(
-        'http://localhost:3000/changesets/{z}/{x}/{y}.geojson'
+        'http://localhost:3000/changesets/{z}/{x}/{y}', {
+          minZoomWithGeometry: 16
+        }
     );
     geoJSON.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
@@ -78,6 +80,12 @@ $(function() {
             });
     });
     map.addLayer(geoJSON);
+
+    var owlTiles = new L.TileLayer.OWLSummaryTiles(
+        'http://localhost:3000/summary/{z}/{x}/{y}', {
+        }
+    );
+    map.addLayer(owlTiles);
 
     // Active state handling.
     $('.nav-container a').click(function() {
@@ -116,7 +124,7 @@ $(function() {
                     '&new_layer=0',
                 complete: function(response) {
                     if (response.status != 200) {
-	                    window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
+                      window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
                     }
                 }
             });

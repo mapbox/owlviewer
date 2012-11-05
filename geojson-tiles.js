@@ -15,11 +15,15 @@ L.TileLayer.GeoJSON = L.TileLayer.extend({
         return this._geojson;
     },
     _addTile: function(tilePoint, container) {
+        if (this._getZoomForUrl() < 16) {
+            return;
+        }
         var tile = { geojson: null };
         this._tiles[tilePoint.x + ':' + tilePoint.y] = tile;
         this._loadTile(tile, tilePoint);
     },
     _loadTile: function (tile, tilePoint) {
+
         var layer = this;
         this._requests.push($.ajax({
             url: this.getTileUrl(tilePoint),
