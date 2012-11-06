@@ -81,8 +81,9 @@ $(function() {
     });
     map.addLayer(geoJSON);
 
+    // Add summary tiles.
     var owlTiles = new L.TileLayer.OWLSummaryTiles(
-        'http://localhost:3000/summary/{z}/{x}/{y}', {
+            'http://localhost:3000/summary/{z}/{x}/{y}', {
         }
     );
     map.addLayer(owlTiles);
@@ -124,7 +125,7 @@ $(function() {
                     '&new_layer=0',
                 complete: function(response) {
                     if (response.status != 200) {
-                      window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
+	                    window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
                     }
                 }
             });
