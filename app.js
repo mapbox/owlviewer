@@ -66,7 +66,7 @@ $(function() {
     geoJSON.on('load', function(e) {
         // Add data to geoJSON layer and
         // populate changeset list
-        var data = geoJSON.geoJSON();
+        var data = geoJSON.data();
         geoJSONLayer.addData(data);
         $('#changesets').empty();
         _(data.features)
@@ -81,12 +81,13 @@ $(function() {
     });
     map.addLayer(geoJSON);
 
+    // TODO: Bring back.
     // Add summary tiles.
-    var owlTiles = new L.TileLayer.OWLSummaryTiles(
-            'http://localhost:3000/summary/{z}/{x}/{y}', {
-        }
-    );
-    map.addLayer(owlTiles);
+    // var owlTiles = new L.TileLayer.OWLSummaryTiles(
+    //         'http://localhost:3000/summary/{z}/{x}/{y}', {
+    //     }
+    // );
+    // map.addLayer(owlTiles);
 
     // Active state handling.
     $('.nav-container a').click(function() {
