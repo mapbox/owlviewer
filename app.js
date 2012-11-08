@@ -84,22 +84,9 @@ $(function() {
     });
     map.addLayer(geoJSON);
 
-    // TODO: Bring back.
     // Add summary tiles.
-    // var owlTiles = new L.TileLayer.OWLSummaryTiles(
-    //         'http://localhost:3000/summary/{z}/{x}/{y}', {
-    //     }
-    // );
-    // map.addLayer(owlTiles);
-    // var summaryIcon = L.divIcon({
-    //     html: '<h3>' + json.num_changesets + '</h3>',
-    //     className: 'summary-tile',
-    //     iconSize: [256, 256]
-    // });
-    // layer._markers.addLayer(L.marker(point, {icon: summaryIcon}));
     var markersLayer = L.layerGroup();
     map.addLayer(markersLayer);
-
     var markers = new L.TileLayer.Marker(
         'http://localhost:3000/summary/{z}/{x}/{y}'
     );
