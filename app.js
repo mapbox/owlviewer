@@ -93,7 +93,10 @@ $(function() {
     markers.on('load', function() {
         markersLayer.clearLayers();
         _.each(markers._tiles, function(t) {
-            var count = t.data.num_changesets || 0;
+            var count = 0;
+            if (t.data && t.data.num_changesets) {
+                count = t.data.num_changesets;
+            }
             var icon = L.divIcon({
                 html: '<h3>' + count + '</h3>',
                 className: 'summary-tile',
