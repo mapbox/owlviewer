@@ -23,6 +23,28 @@ $(function() {
 
     new L.Hash(map);
 
+    // Add summary tiles.
+    var markersLayer = L.layerGroup();
+    map.addLayer(markersLayer);
+    var markers = new L.TileLayer.Marker(
+        'http://localhost:3000/summary/{z}/{x}/{y}'
+    );
+    markers.on('load', function() {
+        markersLayer.clearLayers();
+        _.each(markers._tiles, function(t) {
+            var count = 0;
+            if (t.data && t.data.num_changesets) {
+                count = t.data.num_changesets;
+            }
+            var icon = L.divIcon({
+                html: '<h3>' + count + '</h3>',
+                className: 'summary-tile',
+                iconSize: [256, 256]
+            });
+            markersLayer.addLayer(L.marker(t.location, {icon: icon}));
+        });
+    });
+
     // Add GeoJSON feature layer
     var geoJSONLayer = new L.GeoJSON(null, {
         pointToLayer: function(featureData, latlng) {
@@ -56,7 +78,9 @@ $(function() {
 
     // Add loader for tiled GeoJSON
     var geoJSON = new L.TileLayer.GeoJSON(
-        'http://localhost:3000/changesets/{z}/{x}/{y}.geojson'
+        'http://localhost:3000/changesets/{z}/{x}/{y}', {
+          minZoomWithGeometry: 16
+        }
     );
     geoJSON.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
@@ -64,7 +88,7 @@ $(function() {
     geoJSON.on('load', function(e) {
         // Add data to geoJSON layer and
         // populate changeset list
-        var data = geoJSON.geoJSON();
+        var data = geoJSON.data();
         geoJSONLayer.addData(data);
         $('#changesets').empty();
         _(data.features)
@@ -80,7 +104,23 @@ $(function() {
                 $('#changesets').append(templates.changeset(p));
             });
     });
-    map.addLayer(geoJSON);
+
+    // Zoom level handling.
+    var layerSwitcher = function() {
+        if (map.getZoom() > 15) {
+            !map.hasLayer(geoJSONLayer) && map.addLayer(geoJSONLayer);
+            !map.hasLayer(geoJSON) && map.addLayer(geoJSON);
+            map.removeLayer(markers);
+            map.removeLayer(markersLayer);
+        } else {
+            !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
+            !map.hasLayer(markers) && map.addLayer(markers);
+            map.removeLayer(geoJSON);
+            map.removeLayer(geoJSONLayer);
+        }
+    };
+    layerSwitcher();
+    map.on('zoomend', layerSwitcher);
 
     // Active state handling.
     $('.nav-container a').click(function() {
