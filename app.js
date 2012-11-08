@@ -1,3 +1,7 @@
+function updateFeedLink() {
+  $('#feed_link').attr('href', 'abc');
+}
+
 $(function() {
     // Set up templates
     var templates = _($('script[name]')).reduce(function(memo, el) {
@@ -15,6 +19,11 @@ $(function() {
             [-82, -180]
         ]
     });
+
+    // Handle RSS/ATOM feed link updates.
+    map.on('moveend', function (e) { updateFeedLink(); });
+    map.on('zoomend', function (e) { updateFeedLink(); });
+
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     new L.Hash(map);
@@ -155,7 +164,7 @@ $(function() {
                     '&new_layer=0',
                 complete: function(response) {
                     if (response.status != 200) {
-	                    window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
+                      window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
                     }
                 }
             });
