@@ -23,7 +23,7 @@ $(function() {
     var markersLayer = L.layerGroup();
     map.addLayer(markersLayer);
     var markers = new L.TileLayer.Marker(
-        'http://localhost:3000/summary/{z}/{x}/{y}'
+        $.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}'
     );
     markers.on('load', function() {
         markersLayer.clearLayers();
@@ -74,7 +74,7 @@ $(function() {
 
     // Add loader for tiled GeoJSON
     var geoJSON = new L.TileLayer.GeoJSON(
-        'http://localhost:3000/changesets/{z}/{x}/{y}', {
+        $.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}', {
           minZoomWithGeometry: 16
         }
     );
@@ -155,7 +155,7 @@ $(function() {
                     '&new_layer=0',
                 complete: function(response) {
                     if (response.status != 200) {
-	                    window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
+                        window.alert('Could not connect to JOSM. Is JOSM running? Is Remote Control enabled?');
                     }
                 }
             });
