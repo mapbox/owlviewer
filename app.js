@@ -15,11 +15,7 @@ $(function() {
             [-82, -180]
         ]
     });
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '<a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
-    }).addTo(map);
-
-    map.attributionControl.setPrefix('');
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     new L.Hash(map);
 

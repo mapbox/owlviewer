@@ -285,6 +285,13 @@ ul.overlay li:last-child { margin-bottom: 0px;}
 
 .leaflet-control-zoom a.leaflet-control-zoom-in { background-position: -20px -195px !important;}
 
+#attribution {
+  z-level: 7;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
 .nav-container {
   padding: 5px;
   background: rgba(0, 0, 0, 0.25);
