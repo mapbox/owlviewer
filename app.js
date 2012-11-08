@@ -15,6 +15,11 @@ $(function() {
             [-82, -180]
         ]
     });
+
+    // Handle RSS/ATOM feed link updates.
+    map.on('moveend', function (e) { updateFeedLink(); });
+    map.on('zoomend', function (e) { updateFeedLink(); });
+
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     new L.Hash(map);
@@ -171,6 +176,23 @@ $(function() {
         }
         return false;
     });
+
+    // Updates feed link by generating the URL based on tile range for the currently visible viewport.
+    function updateFeedLink() {
+        var bounds = map.getPixelBounds(),
+          nwTilePoint = new L.Point(
+            Math.floor(bounds.min.x / markers.options.tileSize),
+            Math.floor(bounds.min.y / markers.options.tileSize)),
+          seTilePoint = new L.Point(
+            Math.floor(bounds.max.x / markers.options.tileSize),
+            Math.floor(bounds.max.y / markers.options.tileSize));
+
+        $('#feed_link').attr('href', $.owlviewer.owl_api_url + 'feed.atom' +
+            '?zoom=' + map.getZoom() +
+            '&from=' + nwTilePoint.x + '/' + nwTilePoint.y +
+            '&to=' + seTilePoint.x + '/' + seTilePoint.y
+        );
+    }
 });
 
 // Return a formatted date in local time
