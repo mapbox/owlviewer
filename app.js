@@ -73,6 +73,9 @@ $(function() {
                 m[f.properties.changeset_id] = f.properties;
                 return m;
             }, {})
+            .sortBy(function(p) {
+                return p.changeset_id * -1;
+            })
             .each(function(p) {
                 $('#changesets').append(templates.changeset(p));
             });
