@@ -1,5 +1,7 @@
 // Load data and track location of tiles.
 L.TileLayer.Marker = L.TileLayer.Data.extend({
+    // Track location tile center location as coordiantes -
+    // this can be used for later placing a marker on the tile.
     _addTile: function(tilePoint, container) {
         var tile = {
             data: null,
