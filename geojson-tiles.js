@@ -7,9 +7,9 @@ L.TileLayer.GeoJSON = L.TileLayer.Data.extend({
         var geojson = {"type":"FeatureCollection","features":[]};
         for (k in this._tiles) {
             var data = this._tiles[k].data;
-            if (data && data.geojson) {
+            if (data && data.features) {
                 geojson.features =
-                    geojson.features.concat(data.geojson.features);
+                    geojson.features.concat(data.features);
             }
         }
         return geojson;
