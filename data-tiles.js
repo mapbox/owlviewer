@@ -25,6 +25,9 @@ L.TileLayer.Data = L.TileLayer.extend({
             success: function(data) {
                 tile.data = data;
                 layer._data = [];
+                layer.fire('tileload', {
+                    tile: tile
+                });
                 layer._tileLoaded();
             },
             error: function() {

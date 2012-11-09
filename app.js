@@ -27,23 +27,27 @@ $(function() {
     // Add summary tiles.
     var markersLayer = L.layerGroup();
     map.addLayer(markersLayer);
+
     var markers = new L.TileLayer.Marker(
         $.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}'
     );
-    markers.on('load', function() {
+
+    map.on('viewreset', function (e) {
         markersLayer.clearLayers();
-        _.each(markers._tiles, function(t) {
-            var count = 0;
-            if (t.data && t.data.num_changesets) {
-                count = t.data.num_changesets;
-            }
-            var icon = L.divIcon({
-                html: '<h3>' + count + '</h3>',
-                className: 'summary-tile',
-                iconSize: [256, 256]
-            });
-            markersLayer.addLayer(L.marker(t.location, {icon: icon}));
+    });
+
+    markers.on('tileload', function(e) {
+        var t = e.tile;
+        var count = 0;
+        if (t.data && t.data.num_changesets) {
+            count = t.data.num_changesets;
+        }
+        var icon = L.divIcon({
+            html: '<h3>' + count + '</h3>',
+            className: 'summary-tile',
+            iconSize: [256, 256]
         });
+        markersLayer.addLayer(L.marker(t.location, {icon: icon}));
     });
 
     // Add GeoJSON feature layer
