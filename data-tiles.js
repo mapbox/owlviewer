@@ -45,6 +45,17 @@ L.TileLayer.Data = L.TileLayer.extend({
     },
     _update: function() {
         if (this._map._panTransition && this._map._panTransition._inProgress) { return; }
+
+        // Geometry tiles are only available for zoom level 16 so beyond that we need to offset.
+        // TODO: make this configurable.
+        if (this._map.getZoom() >= 16) {
+          this.options.zoomOffset = 16 - this._map.getZoom();
+          this.options.tileSize = Math.pow(2, 8 - this.options.zoomOffset);
+        } else {
+          this.options.zoomOffset = 0;
+          this.options.tileSize = 256;
+        }
+
         L.TileLayer.prototype._update.apply(this, arguments);
     }
 });
