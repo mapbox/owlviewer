@@ -95,7 +95,7 @@ em { font-style: italic;}
   Layout
 -------------------------------------------------------- */
 
-.map-container { 
+.map-container {
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 240px;
   overflow: hidden;
@@ -233,11 +233,11 @@ em { font-style: italic;}
     z-index: 100;
     opacity: 1;
     right: 50px;
-  -webkit-transition: opacity .3s ease, z-index 0 ease, right 0 ease;
-     -moz-transition: opacity .3s ease, z-index 0 ease, right 0 ease;
-      -ms-transition: opacity .3s ease, z-index 0 ease, right 0 ease;
-       -o-transition: opacity .3s ease, z-index 0 ease, right 0 ease;
-          transition: opacity .3s ease, z-index 0 ease, right 0 ease;
+  -webkit-transition: opacity .3s ease, z-index 0, right 0;
+     -moz-transition: opacity .3s ease, z-index 0, right 0;
+      -ms-transition: opacity .3s ease, z-index 0, right 0;
+       -o-transition: opacity .3s ease, z-index 0, right 0;
+          transition: opacity .3s ease, z-index 0, right 0;
   }
 
 .overlay::after {
