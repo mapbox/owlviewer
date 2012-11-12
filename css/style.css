@@ -133,7 +133,7 @@ em { font-style: italic;}
 #changesets {
   position: absolute;
   top: 111px;
-  bottom: 0;
+  bottom: 39px;
   left: 0; right: 0;
   overflow: auto;
   }
@@ -205,6 +205,29 @@ em { font-style: italic;}
 .changeset .user {
   margin-left: 5px;
   line-height: 26px;
+}
+
+/* --------------------------------------------------------
+ Footer
+-------------------------------------------------------- */
+
+#footer {
+  height: 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: white;
+  border-top: 1px solid #d2c7d6;
+  text-overflow: ellipsis;
+}
+
+.icon.feed {
+  background-position: -40px -50px;
+}
+
+#footer p {
+  margin-left: 0px;
+  font-size: 11px;
 }
 
 /* --------------------------------------------------------
