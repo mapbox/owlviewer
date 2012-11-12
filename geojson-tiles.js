@@ -1,36 +1,16 @@
 // Load tiled GeoJSON and merge into single geojson hash.
 // Requires jQuery for jsonp.
-L.TileLayer.GeoJSON = L.TileLayer.extend({
-    data: null,
-    _addTile: function(tilePoint, container) {
-        this._loadTile(null, tilePoint);
-    },
-    _loadTile: function (tile, tilePoint) {
-        var layer = this;
-        $.ajax({
-            url: this.getTileUrl(tilePoint),
-            dataType: 'jsonp',
-            success: function(geojson) {
-                if (!layer.data) {
-                    layer.data = geojson;
-                } else if (geojson.features) {
-                    layer.data.features = layer.data.features || [];
-                    layer.data.features =
-                        layer.data.features.concat(geojson.features);
-                }
-                layer._tileLoaded();
-            },
-            error: function() {
-                layer._tileLoaded();
+L.TileLayer.GeoJSON = L.TileLayer.Data.extend({
+    // Retrieve data.
+    data: function() {
+        var geojson = {"type":"FeatureCollection","features":[]};
+        for (k in this._tiles) {
+            var data = this._tiles[k].data;
+            if (data && data.features) {
+                geojson.features =
+                    geojson.features.concat(data.features);
             }
-        });
-    },
-    _resetCallback: function() {
-        this.data = null;
-        L.TileLayer.prototype._resetCallback.apply(this, arguments);
-    },
-	_update: function() {
-        this.data = null;
-	    L.TileLayer.prototype._update.apply(this, arguments);
-	}
+        }
+        return geojson;
+    }
 });

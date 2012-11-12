@@ -285,6 +285,15 @@ ul.overlay li:last-child { margin-bottom: 0px;}
 
 .leaflet-control-zoom a.leaflet-control-zoom-in { background-position: -20px -195px !important;}
 
+#attribution {
+  z-level: 7;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  }
+  #attribution a {
+    color: #333;
+    }
 .nav-container {
   padding: 5px;
   background: rgba(0, 0, 0, 0.25);
@@ -316,3 +325,12 @@ ul.overlay li:last-child { margin-bottom: 0px;}
 .nav-container.active a.nav-link {
   background-color: #b063d0 !important;
   }
+
+.summary-tile {
+  width: 256px;
+  height: 256px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border:1px solid;
+  text-align: center;
+  vertical-align: middle;
+}
