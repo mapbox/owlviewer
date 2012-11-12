@@ -48,10 +48,12 @@ L.TileLayer.Data = L.TileLayer.extend({
 
         // Geometry tiles are only available for zoom level 16 so beyond that we need to offset.
         // TODO: make this configurable.
-        if (this._map.getZoom() >= 16) {
+        if (this._map.getZoom() > 16) {
           this.options.zoomOffset = 16 - this._map.getZoom();
+          // Modified tile size: ZL17 -> 512, ZL19 -> 1024
           this.options.tileSize = Math.pow(2, 8 - this.options.zoomOffset);
         } else {
+          // Regular settings.
           this.options.zoomOffset = 0;
           this.options.tileSize = 256;
         }
