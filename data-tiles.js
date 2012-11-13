@@ -44,7 +44,7 @@ L.TileLayer.Data = L.TileLayer.extend({
         this._requests = [];
     },
     _update: function() {
-        if (this._map._panTransition && this._map._panTransition._inProgress) { return; }
+        if (!this._map || (this._map._panTransition && this._map._panTransition._inProgress)) { return; }
 
         // Geometry tiles are only available for zoom level 16 so beyond that we need to offset.
         // TODO: make this configurable.
