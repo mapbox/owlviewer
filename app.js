@@ -51,7 +51,24 @@ $(function() {
     });
 
     // Add GeoJSON feature layer
-    var geoJSONLayer = new L.GeoJSON(null, {
+
+    L.ExtendedGeoJSON = L.GeoJSON.extend({
+        addData: function (geojson) {
+            var add = true;
+            this.eachLayer(function(layer) {
+                if (layer.feature.id == geojson.id) {
+                  // Already added.
+                  add = false;
+                  return;
+                }
+            });
+            if (add) {
+                L.GeoJSON.prototype.addData.apply(this, arguments);
+            }
+        }
+    });
+
+    var geoJSONLayer = new L.ExtendedGeoJSON(null, {
         pointToLayer: function(featureData, latlng) {
             return new L.Polyline([latlng]);
         },
@@ -82,21 +99,16 @@ $(function() {
     map.addLayer(geoJSONLayer);
 
     // Add loader for tiled GeoJSON
-    var geoJSON = new L.TileLayer.GeoJSON(
-        $.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}', {
-          minZoomWithGeometry: 16
-        }
-    );
+    var geoJSON = new L.TileLayer.GeoJSON($.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}');
     geoJSON.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
     geoJSON.on('load', function(e) {
-        // Add data to geoJSON layer and
-        // populate changeset list
+        // Add data to geoJSON layer and populate changeset list
         var data = geoJSON.data();
         geoJSONLayer.addData(data);
         $('#changesets').empty();
-        _(data.features)
+        _(data)
             .chain()
             .reduce(function(m, f) {
                 m[f.properties.changeset_id] = f.properties;
