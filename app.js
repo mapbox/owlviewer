@@ -68,8 +68,8 @@ $(function() {
             layer.on('mouseover', function() {
                 layer.setStyle({
                     "color": "blue",
-                    "opacity": 0.2,
-                    "fillOpacity": 0.2
+                    "opacity": 0.05,
+                    "fillOpacity": 0.05
                 });
                 $(id).addClass('highlight');
             });
