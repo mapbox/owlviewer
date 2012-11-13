@@ -21,7 +21,7 @@ L.TileLayer.Data = L.TileLayer.extend({
         var layer = this;
         this._requests.push($.ajax({
             url: this.getTileUrl(tilePoint),
-            dataType: 'jsonp',
+            dataType: $.browser.msie ? 'jsonp' : 'json',
             success: function(data) {
                 tile.data = data;
                 layer._data = [];
