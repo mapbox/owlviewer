@@ -17,8 +17,8 @@ $(function() {
     });
 
     // Handle RSS/ATOM feed link updates.
-    map.on('moveend', function (e) { updateFeedLink(); });
-    map.on('zoomend', function (e) { updateFeedLink(); });
+    map.on('moveend', function (e) { updateFeedLink(); updateChangesetList(); });
+    map.on('zoomend', function (e) { updateFeedLink(); updateChangesetList(); });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -107,42 +107,7 @@ $(function() {
         // Add data to geoJSON layer and populate changeset list
         var data = geoJSON.data();
         geoJSONLayer.addData(data);
-        $('#changesets').empty();
-        _(data)
-            .chain()
-            .reduce(function(m, f) {
-                m[f.properties.changeset_id] = f.properties;
-                return m;
-            }, {})
-            .sortBy(function(p) {
-                return p.changeset_id * -1;
-            })
-            .each(function(p) {
-                $('#changesets').append(templates.changeset(p));
-            });
-        $('.changeset').on('hover', function(e) {
-            if (e.target.id.length == 0) {
-                // Not a changeset list element!?
-                return;
-            }
-            var changeset_id = e.target.id.split('-')[1];
-            // Now highlight all features for that changeset.
-            geoJSONLayer.eachLayer(function(layer) {
-                  if (layer.feature.id.indexOf(changeset_id) != 0) {
-                      // Not what we're looking for.
-                      return;
-                  }
-                  if (e.type == "mouseenter") {
-                      layer.setStyle({
-                          "color": "blue",
-                          "opacity": 0.05,
-                          "fillOpacity": 0.05
-                      });
-                  } else {
-                    layer.setStyle(geoJSONLayer.options.style);
-                  }
-            });
-        });
+        updateChangesetList();
     });
 
     // Zoom level handling.
@@ -231,6 +196,46 @@ $(function() {
             '&from=' + nwTilePoint.x + '/' + nwTilePoint.y +
             '&to=' + seTilePoint.x + '/' + seTilePoint.y
         );
+    }
+
+    function updateChangesetList() {
+        if (!geoJSON._map) { return; }
+        $('#changesets').empty();
+        _(geoJSON.data())
+            .chain()
+            .reduce(function(m, f) {
+                m[f.properties.changeset_id] = f.properties;
+                return m;
+            }, {})
+            .sortBy(function(p) {
+                return p.changeset_id * -1;
+            })
+            .each(function(p) {
+                $('#changesets').append(templates.changeset(p));
+            });
+        $('.changeset').on('hover', function(e) {
+            if (e.target.id.length == 0) {
+                // Not a changeset list element!?
+                return;
+            }
+            var changeset_id = e.target.id.split('-')[1];
+            // Now highlight all features for that changeset.
+            geoJSONLayer.eachLayer(function(layer) {
+                  if (layer.feature.id.indexOf(changeset_id) != 0) {
+                      // Not what we're looking for.
+                      return;
+                  }
+                  if (e.type == "mouseenter") {
+                      layer.setStyle({
+                          "color": "blue",
+                          "opacity": 0.05,
+                          "fillOpacity": 0.05
+                      });
+                  } else {
+                    layer.setStyle(geoJSONLayer.options.style);
+                  }
+            });
+        });
     }
 });
 
