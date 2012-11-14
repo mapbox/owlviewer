@@ -79,6 +79,11 @@
         <a class='id' href='http://www.openstreetmap.org/browse/changeset/<%=changeset_id%>'>#<%=changeset_id%></a>
          <!-- <div class='comment'></div> -->
         <span class='user'>by <a href='http://www.openstreetmap.org/user/<%=user_name%>'><strong><%=user_name%></strong></a></span>
+        <div class='details'>
+          nodes: <%=entity_changes[0] %>, <%=entity_changes[1] %>, <%=entity_changes[2] %>
+          ways: <%=entity_changes[3] %>, <%=entity_changes[4] %>, <%=entity_changes[5] %>
+          relations: <%=entity_changes[6] %>, <%=entity_changes[7] %>, <%=entity_changes[8] %>
+        </div>
       </div>
     </script>
 
