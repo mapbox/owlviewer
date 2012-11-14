@@ -120,6 +120,29 @@ $(function() {
             .each(function(p) {
                 $('#changesets').append(templates.changeset(p));
             });
+        $('.changeset').on('hover', function(e) {
+            if (e.target.id.length == 0) {
+                // Not a changeset list element!?
+                return;
+            }
+            var changeset_id = e.target.id.split('-')[1];
+            // Now highlight all features for that changeset.
+            geoJSONLayer.eachLayer(function(layer) {
+                  if (layer.feature.id.indexOf(changeset_id) != 0) {
+                      // Not what we're looking for.
+                      return;
+                  }
+                  if (e.type == "mouseenter") {
+                      layer.setStyle({
+                          "color": "blue",
+                          "opacity": 0.05,
+                          "fillOpacity": 0.05
+                      });
+                  } else {
+                    layer.setStyle(geoJSONLayer.options.style);
+                  }
+            });
+        });
     });
 
     // Zoom level handling.
