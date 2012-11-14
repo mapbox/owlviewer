@@ -69,9 +69,9 @@ $(function() {
     });
 
     var geoJSONLayer = new L.ExtendedGeoJSON(null, {
-        pointToLayer: function(featureData, latlng) {
-            return new L.Polyline([latlng]);
-        },
+        //pointToLayer: function(featureData, latlng) {
+        //    return new L.CircleMarker(latlng);
+        //},
         style: {
             "color": "yellow",
             "fillColor": "yellow",
