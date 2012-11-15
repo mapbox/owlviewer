@@ -68,20 +68,20 @@ $(function() {
         }
     });
 
+    var geoJSONStyle = {
+        "color": "yellow",
+        "fillColor": "yellow",
+        "weight": 10,
+        "opacity": 0.75,
+        "fillOpacity": 0.75
+    };
     var geoJSONLayer = new L.ExtendedGeoJSON(null, {
-        //pointToLayer: function(featureData, latlng) {
-        //    return new L.CircleMarker(latlng);
-        //},
-        style: {
-            "color": "yellow",
-            "fillColor": "yellow",
-            "weight": 10,
-            "opacity": 0.75,
-            "fillOpacity": 0.75
+        pointToLayer: function(featureData, latlng) {
+            return new L.Circle(latlng, 2);
         },
         onEachFeature: function (feature, layer) {
-            var style = this.style;
             var id = '#changeset-' + feature.properties.changeset_id;
+            layer.setStyle(geoJSONStyle);
             layer.on('mouseover', function() {
                 layer.setStyle({
                     "color": "blue",
@@ -91,7 +91,7 @@ $(function() {
                 $(id).addClass('highlight');
             });
             layer.on('mouseout', function() {
-                layer.setStyle(style);
+                layer.setStyle(geoJSONStyle);
                 $(id).removeClass('highlight');
             });
         }
@@ -232,7 +232,7 @@ $(function() {
                           "fillOpacity": 0.05
                       });
                   } else {
-                    layer.setStyle(geoJSONLayer.options.style);
+                    layer.setStyle(geoJSONStyle);
                   }
             });
         });
