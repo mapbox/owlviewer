@@ -221,7 +221,7 @@ $(function() {
             var changeset_id = e.target.id.split('-')[1];
             // Now highlight all features for that changeset.
             geoJSONLayer.eachLayer(function(layer) {
-                  if (layer.feature.id.indexOf(changeset_id) != 0) {
+                  if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
                       // Not what we're looking for.
                       return;
                   }
@@ -232,7 +232,7 @@ $(function() {
                           "fillOpacity": 0.05
                       });
                   } else {
-                    layer.setStyle(geoJSONStyle);
+                      layer.setStyle(geoJSONStyle);
                   }
             });
         });
