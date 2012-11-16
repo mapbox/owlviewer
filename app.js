@@ -45,6 +45,12 @@ $(function() {
         });
         markersLayer.addLayer(L.marker(t.location, {icon: icon}));
     });
+    markers.on('loading', function(e) {
+        $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
+    });
+    markers.on('load', function(e) {
+        $('#changesets').html("<div class='info'>Zoom in to see<br>changeset details.</div>");
+    });
 
     // Add GeoJSON feature layer
 

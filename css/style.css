@@ -180,23 +180,30 @@ em { font-style: italic;}
 
 #changesets .inner {
   border-bottom: 1px solid #d2c7d6;
-  }
+}
+
+#changesets .info {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 40px;
+  text-align: center;
+}
 
 .changeset {
   background: white;
-  }
+}
 
 .changeset.highlight {
   background-color: #ffffda;
   box-shadow: inset 0 0 0 5px #FFE7A8;
-  }
+}
 
 .changeset .id {
   position: relative;
   font-size: 16px;
   float: left;
   font-weight: bold;
-  }
+}
 
 .changeset .icon.clock {
   background-position: 0 -100px;
