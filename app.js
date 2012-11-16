@@ -82,7 +82,7 @@ $(function() {
             return new L.Circle(latlng, 2);
         },
         onEachFeature: function (feature, layer) {
-            var id = '#changeset-' + feature.properties.changeset_id;
+            var id = '#changeset-' + feature.properties.id;
             layer.setStyle(geoJSONStyle);
             layer.on('mouseover', function() {
                 layer.setStyle({
@@ -206,11 +206,11 @@ $(function() {
         _(geoJSON.data())
             .chain()
             .reduce(function(m, f) {
-                m[f.properties.changeset_id] = f.properties;
+                m[f.properties.id] = f.properties;
                 return m;
             }, {})
             .sortBy(function(p) {
-                return p.changeset_id * -1;
+                return p.id * -1;
             })
             .each(function(p) {
                 $('#changesets').append(templates.changeset(p));
