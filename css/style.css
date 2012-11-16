@@ -357,3 +357,13 @@ ul.overlay li:last-child { margin-bottom: 0px;}
   text-align: center;
   vertical-align: middle;
 }
+
+.summary-tile .count {
+  margin: 75px 0 0 0;
+  font-weight: bold;
+  font-size: large;
+}
+
+.summary-tile .icon.clock {
+  background-position: 0 -100px;
+}

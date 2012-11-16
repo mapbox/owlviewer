@@ -38,12 +38,8 @@ $(function() {
 
     markers.on('tileload', function(e) {
         var t = e.tile;
-        var count = 0;
-        if (t.data && t.data.num_changesets) {
-            count = t.data.num_changesets;
-        }
         var icon = L.divIcon({
-            html: '<h3>' + count + '</h3>',
+            html: templates.summarytile(t.data),
             className: 'summary-tile',
             iconSize: [256, 256]
         });
