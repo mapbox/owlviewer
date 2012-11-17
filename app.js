@@ -1,5 +1,6 @@
 $(function() {
-    var geoJSON;
+    var mode;
+    var geoJSON, markers;
     var changesets = [];
 
     // Updates feed link by generating the URL based on tile range for the currently visible viewport.
@@ -19,13 +20,36 @@ $(function() {
         );
     }
 
-    // Extracts changesets from GeoJSON.
-    function addChangesetsFromGeoJSON(geojson) {
+    // Extracts changesets from the GeoJSON layer.
+    function setChangesetsFromGeoJSON() {
+        var geojson = geoJSON.data();
         changesets = [];
         for (k in geojson) {
-            changesets.push(geojson[k].properties);
+            if (geojson[k] && geojson[k].features.length > 0) {
+                addChangeset(geojson[k].features[0].properties);
+            }
         }
         updateChangesetList();
+    }
+
+    // Extracts changesets from the summary tiles (marker) layer.
+    function setChangesetsFromSummaryTiles() {
+        var data = markers.data();
+        changesets = [];
+        for (k in data) {
+            if (data[k]) {
+                addChangeset(data[k].latest_changeset);
+            }
+        }
+        updateChangesetList();
+    }
+
+    function resetChangesetList() {
+        if (mode == 'GEOJSON') {
+            setChangesetsFromGeoJSON();
+        } else if (mode == 'SUMMARY') {
+            setChangesetsFromSummaryTiles();
+        }
     }
 
     function addChangeset(changeset) {
@@ -92,8 +116,8 @@ $(function() {
     });
 
     // Handle RSS/ATOM feed link updates.
-    map.on('moveend', function (e) { updateFeedLink(); changesets = []; updateChangesetList(); });
-    map.on('zoomend', function (e) { updateFeedLink(); changesets = []; updateChangesetList(); });
+    map.on('moveend', function (e) { updateFeedLink(); resetChangesetList(); });
+    map.on('zoomend', function (e) { updateFeedLink(); resetChangesetList(); });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -103,9 +127,7 @@ $(function() {
     var markersLayer = L.layerGroup();
     map.addLayer(markersLayer);
 
-    var markers = new L.TileLayer.Marker(
-        $.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}'
-    );
+    markers = new L.TileLayer.Marker($.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}');
 
     map.on('viewreset', function (e) {
         markersLayer.clearLayers();
@@ -119,30 +141,27 @@ $(function() {
             iconSize: [256, 256]
         });
         markersLayer.addLayer(L.marker(t.location, {icon: icon}));
-        addChangeset(t.data.latest_changeset);
-        updateChangesetList();
+        setChangesetsFromSummaryTiles();
     });
     markers.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
-        changesets = [];
     });
     markers.on('load', function(e) {
         //$('#zoominfo').html("<div class='info'>Zoom in to see<br>changeset details.</div>");
     });
 
     // Add GeoJSON feature layer
-
     L.ExtendedGeoJSON = L.GeoJSON.extend({
         addData: function (geojson) {
             var add = true;
             this.eachLayer(function(layer) {
-                if (layer.feature.id == geojson.id) {
+                if ((typeof layer.feature == 'undefined') && layer.feature.id == geojson.id) {
                   // Already added.
                   add = false;
                   return;
                 }
             });
-            if (add) {
+            if (add && (typeof geojson != 'undefined')) {
                 L.GeoJSON.prototype.addData.apply(this, arguments);
             }
         }
@@ -187,18 +206,20 @@ $(function() {
         // Add data to geoJSON layer and populate changeset list
         var data = geoJSON.data();
         geoJSONLayer.addData(data);
-        addChangesetsFromGeoJSON(data);
+        setChangesetsFromGeoJSON();
     });
 
     // Zoom level handling.
     var layerSwitcher = function() {
-        if (map.getZoom() > 15) {
+        if (map.getZoom() >= 16) {
+            mode = 'GEOJSON';
             !map.hasLayer(geoJSONLayer) && map.addLayer(geoJSONLayer);
             !map.hasLayer(geoJSON) && map.addLayer(geoJSON);
             map.removeLayer(markers);
             map.removeLayer(markersLayer);
             $('#zoominfo').html("");
         } else {
+            mode = 'SUMMARY';
             !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
             !map.hasLayer(markers) && map.addLayer(markers);
             map.removeLayer(geoJSON);

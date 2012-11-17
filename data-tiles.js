@@ -2,15 +2,20 @@
 // Requires jQuery for jsonp.
 L.TileLayer.Data = L.TileLayer.extend({
     _requests: [],
-    _data: [],
-    // Retrieve data.
+    // Retrieve data from visible tiles.
     data: function() {
-        // Aggregate data on demand as tiles might be reused as map pans.
-        if (this._data.length) return this._data;
+        var bounds = this.getTileBounds();
+        if (!bounds) { return; }
+        var result = [];
         for (k in this._tiles) {
-            this._tiles[k].data && this._data.push(this._tiles[k].data);
+            var tile_x = k.split(':')[0], tile_y = k.split(':')[1];
+            if (tile_x < bounds.min.x || tile_x > bounds.max.x || tile_y < bounds.min.y || tile_y > bounds.max.y) {
+                // Tile is out of bounds (not visible) - skip it.
+                continue;
+            }
+            result.push(this._tiles[k].data);
         }
-        return this._data;
+        return result;
     },
     _addTile: function(tilePoint, container) {
         var tile = { data: null };
@@ -24,7 +29,6 @@ L.TileLayer.Data = L.TileLayer.extend({
             dataType: $.browser.msie ? 'jsonp' : 'json',
             success: function(data) {
                 tile.data = data;
-                layer._data = [];
                 layer.fire('tileload', {
                     tile: tile
                 });
@@ -36,7 +40,6 @@ L.TileLayer.Data = L.TileLayer.extend({
         }));
     },
     _resetCallback: function() {
-        this._data = [];
         L.TileLayer.prototype._resetCallback.apply(this, arguments);
         for (i in this._requests) {
             this._requests[i].abort();
@@ -59,5 +62,17 @@ L.TileLayer.Data = L.TileLayer.extend({
         }
 
         L.TileLayer.prototype._update.apply(this, arguments);
+    },
+    getTileBounds: function() {
+        if (!this._map) { return; }
+        var bounds = this._map.getPixelBounds(),
+          zoom = this._map.getZoom(), tileSize = this.options.tileSize;
+        var nwTilePoint = new L.Point(
+          Math.floor(bounds.min.x / tileSize),
+          Math.floor(bounds.min.y / tileSize)),
+        seTilePoint = new L.Point(
+          Math.floor(bounds.max.x / tileSize),
+          Math.floor(bounds.max.y / tileSize));
+        return new L.Bounds(nwTilePoint, seTilePoint);
     }
 });
