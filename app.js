@@ -281,24 +281,22 @@ Date.prototype.nice = function() {
         10: 'Nov',
         11: 'Dec'
     };
-    var AMPM = 'AM'
+    //var AMPM = 'AM'
     var hours = this.getHours();
-    if (hours > 12) {
-        hours = hours - 12;
-        hours = hours == 0 ? 12 : hours;
-        AMPM = 'PM';
-    }
+    //if (hours > 12) {
+    //    hours = hours - 12;
+    //    hours = hours == 0 ? 12 : hours;
+    //    AMPM = 'PM';
+    //}
     var o = '';
-    o += hours;
-    o += ':';
-    o += this.getMinutes();
-    o += ' ';
-    o += AMPM;
-    o += ', ';
-    o += months[this.getMonth()].toUpperCase();
-    o += ' ';
     o += this.getDate();
     o += ' ';
+    o += months[this.getMonth()];
+    o += ' ';
     o += this.getFullYear();
+    o += ', ';
+    o += hours;
+    o += ':';
+    o += this.getMinutes() < 10 ? '0' + this.getMinutes() : this.getMinutes();
     return o;
 };
