@@ -53,6 +53,8 @@ $(function() {
                 return;
             }
             var changeset_id = e.target.id.split('-')[1];
+            var details_el = $(e.target).children('div[class=stats]');
+            e.type == "mouseenter" ? details_el.show() : details_el.hide();
             // Now highlight all features for that changeset.
             geoJSONLayer.eachLayer(function(layer) {
                   if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
@@ -90,8 +92,8 @@ $(function() {
     });
 
     // Handle RSS/ATOM feed link updates.
-    map.on('moveend', function (e) { updateFeedLink(); updateChangesetList(); });
-    map.on('zoomend', function (e) { updateFeedLink(); updateChangesetList(); });
+    map.on('moveend', function (e) { updateFeedLink(); changesets = []; updateChangesetList(); });
+    map.on('zoomend', function (e) { updateFeedLink(); changesets = []; updateChangesetList(); });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 

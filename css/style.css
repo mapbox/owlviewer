@@ -216,6 +216,7 @@ em { font-style: italic;}
 .changeset .stats {
   position: relative;
   margin-left: 0px;
+  display: none;
 }
 
 .graph {
