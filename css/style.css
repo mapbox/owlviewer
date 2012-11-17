@@ -213,6 +213,33 @@ em { font-style: italic;}
   line-height: 26px;
 }
 
+.changeset .stats {
+  position: relative;
+  margin-left: 0px;
+}
+
+.graph {
+  font-size: smaller;
+  left: 0px;
+  white-space: nowrap;
+}
+
+.graph span {
+  padding: 0 5px;
+}
+
+.created {
+  background-color: #7F7;
+}
+
+.modified {
+  background-color: yellow;
+}
+
+.deleted {
+  background-color: #f77;
+}
+
 /* --------------------------------------------------------
  Footer
 -------------------------------------------------------- */

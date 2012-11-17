@@ -76,13 +76,12 @@
     <script name="changeset" type="text/html">
       <div class='changeset inner hover-glow' id='changeset-<%=id%>'>
         <div class='date'><span class='icon clock'></span><%= (new Date(created_at)).nice() %></div>
-        <a class='id' href='http://www.openstreetmap.org/browse/changeset/<%=id%>'>#<%=id%></a>
-         <!-- <div class='comment'></div> -->
-        <span class='user'>by <a href='http://www.openstreetmap.org/user/<%=user_name%>'><strong><%=user_name%></strong></a></span>
-        <div class='details'>
-          nodes: <%=entity_changes[0] %>, <%=entity_changes[1] %>, <%=entity_changes[2] %>
-          ways: <%=entity_changes[3] %>, <%=entity_changes[4] %>, <%=entity_changes[5] %>
-          relations: <%=entity_changes[6] %>, <%=entity_changes[7] %>, <%=entity_changes[8] %>
+        <div class='user'><a class='id' href='http://www.openstreetmap.org/browse/changeset/<%=id%>'>#<%=id%></a>
+          by <a href='http://www.openstreetmap.org/user/<%=user_name%>'><strong><%=user_name%></strong></a></div>
+        <div class="stats">
+          <span class="graph">N:<span class="created"><%=entity_changes[0] %></span><span class="modified"><%=entity_changes[1] %></span><span class="deleted"><%=entity_changes[2] %></span></span>
+          <span class="graph">W:<span class="created"><%=entity_changes[3] %></span><span class="modified"><%=entity_changes[4] %></span><span class="deleted"><%=entity_changes[5] %></span></span>
+          <span class="graph">R:<span class="created"><%=entity_changes[6] %></span><span class="modified"><%=entity_changes[7] %></span><span class="deleted"><%=entity_changes[8] %></span></span>
         </div>
       </div>
     </script>
@@ -90,12 +89,11 @@
     <script name="summarytile" type="text/html">
       <div class='summary-tile'>
         <div class='count'><%= num_changesets %></div>
-        <% if (latest_changeset) { %>Latest changeset:
+<!--        <% if (latest_changeset) { %>Latest changeset:
           <div class='date'><span class='icon clock'></span><%= (new Date(latest_changeset.created_at)).nice() %></div>
           <a class='id' href='http://www.openstreetmap.org/browse/changeset/<%=latest_changeset.id%>'>#<%=latest_changeset.id%></a>
-           <!-- <div class='comment'></div> -->
           <span class='user'>by <a href='http://www.openstreetmap.org/user/<%=latest_changeset.user_name%>'><strong><%=latest_changeset.user_name%></strong></a></span>
-        <% } %>
+        <% } %>-->
       </div>
     </script>
 
