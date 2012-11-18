@@ -1,6 +1,6 @@
 $(function() {
     var mode;
-    var geoJSON, markers;
+    var map, geoJSON, markers;
     var changesets = [];
 
     // Updates feed link by generating the URL based on tile range for the currently visible viewport.
@@ -98,16 +98,37 @@ $(function() {
         });
     }
 
+    // Loads center and zoom from a cookie.
+    function loadMapSettings() {
+        var cookie = $.cookie('mapSettings');
+        var latlng = [50, 20], zoom = 5;
+        console.log(cookie);
+        if (cookie) {
+            var a = cookie.split('|');
+
+            latlng = [a[1], a[2]];
+            zoom = a[0];
+        }
+        return {center: latlng, zoom: zoom};
+    }
+
+    // Saves current center and zoom to a cookie.
+    function saveMapSettings() {
+        $.cookie('mapSettings', map.getZoom() + '|' + map.getCenter().lat + '|' + map.getCenter().lng);
+    }
+
     // Set up templates
     var templates = _($('script[name]')).reduce(function(memo, el) {
         memo[el.getAttribute('name')] = _(el.innerHTML).template();
         return memo;
     }, {});
 
+    var mapSettings = loadMapSettings();
+
     // Set up map
-    var map = L.map('map', {
-        center: [51.505, -0.09],
-        zoom: 13,
+    map = L.map('map', {
+        center: mapSettings['center'],
+        zoom: mapSettings['zoom'],
         minZoom: 2,
         maxBounds: [
             [82, 180],
@@ -116,8 +137,8 @@ $(function() {
     });
 
     // Handle RSS/ATOM feed link updates.
-    map.on('moveend', function (e) { updateFeedLink(); resetChangesetList(); });
-    map.on('zoomend', function (e) { updateFeedLink(); resetChangesetList(); });
+    map.on('moveend', function (e) { saveMapSettings(); updateFeedLink(); resetChangesetList(); });
+    map.on('zoomend', function (e) { saveMapSettings(); updateFeedLink(); resetChangesetList(); });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
