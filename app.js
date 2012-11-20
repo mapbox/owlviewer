@@ -13,10 +13,10 @@ $(function() {
             Math.floor(bounds.max.x / markers.options.tileSize),
             Math.floor(bounds.max.y / markers.options.tileSize));
 
-        $('#feed_link').attr('href', $.owlviewer.owl_api_url + 'feed.atom' +
-            '?zoom=' + map.getZoom() +
-            '&from=' + nwTilePoint.x + '/' + nwTilePoint.y +
-            '&to=' + seTilePoint.x + '/' + seTilePoint.y
+        $('#feed_link').attr('href', $.owlviewer.owl_api_url + 'changesets/'
+            + map.getZoom() + '/'
+            + nwTilePoint.x + '/' + nwTilePoint.y + '/'
+            + seTilePoint.x + '/' + seTilePoint.y + '.atom'
         );
     }
 
@@ -109,7 +109,7 @@ $(function() {
             latlng = [a[1], a[2]];
             zoom = a[0];
         }
-        return {center: latlng, zoom: zoom};
+        map.setView(latlng, zoom, false);
     }
 
     // Saves current center and zoom to a cookie.
@@ -123,12 +123,8 @@ $(function() {
         return memo;
     }, {});
 
-    var mapSettings = loadMapSettings();
-
     // Set up map
     map = L.map('map', {
-        center: mapSettings['center'],
-        zoom: mapSettings['zoom'],
         minZoom: 2,
         maxBounds: [
             [82, 180],
@@ -136,13 +132,14 @@ $(function() {
         ]
     });
 
+    loadMapSettings();
+    new L.Hash(map);
+
     // Handle RSS/ATOM feed link updates.
     map.on('moveend', function (e) { saveMapSettings(); updateFeedLink(); resetChangesetList(); });
     map.on('zoomend', function (e) { saveMapSettings(); updateFeedLink(); resetChangesetList(); });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-    new L.Hash(map);
 
     // Add summary tiles.
     var markersLayer = L.layerGroup();
@@ -219,7 +216,7 @@ $(function() {
     map.addLayer(geoJSONLayer);
 
     // Add loader for tiled GeoJSON
-    geoJSON = new L.TileLayer.GeoJSON($.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}');
+    geoJSON = new L.TileLayer.GeoJSON($.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}.geojson');
     geoJSON.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
@@ -250,6 +247,8 @@ $(function() {
     };
     layerSwitcher();
     map.on('zoomend', layerSwitcher);
+
+    updateFeedLink();
 
     // Active state handling.
     $('.nav-container a').click(function() {
