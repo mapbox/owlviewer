@@ -143,21 +143,24 @@ $(function() {
             map.removeLayer(markersLayer);
             map.removeLayer(bboxTileLayer);
             $('#zoominfo').html("");
-        } else {
+        } else if (map.getZoom() >= 10) {
             mode = 'BBOXES';
-            if (mode == 'SUMMARY') {
-                !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
-                !map.hasLayer(markers) && map.addLayer(markers);
-                map.removeLayer(geoJSON);
-                map.removeLayer(geoJSONLayer);
-                map.removeLayer(bboxTileLayer);
-            } else if (mode == 'BBOXES') {
-                !map.hasLayer(bboxTileLayer) && map.addLayer(bboxTileLayer);
-                map.removeLayer(geoJSON);
-                map.removeLayer(geoJSONLayer);
-            }
+            !map.hasLayer(bboxTileLayer) && map.addLayer(bboxTileLayer);
+            map.removeLayer(geoJSON);
+            map.removeLayer(geoJSONLayer);
+            map.removeLayer(markers);
+            map.removeLayer(markersLayer);
+            $('#zoominfo').html("Zoom in for changeset details");
+        } else {
+            mode = 'SUMMARY';
+            !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
+            !map.hasLayer(markers) && map.addLayer(markers);
+            map.removeLayer(geoJSON);
+            map.removeLayer(geoJSONLayer);
+            map.removeLayer(bboxTileLayer);
             $('#zoominfo').html("Zoom in for changeset details");
         }
+
     };
     layerSwitcher();
     map.on('zoomend', layerSwitcher);
