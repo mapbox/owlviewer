@@ -90,7 +90,6 @@ function updateChangesetList() {
 function loadMapSettings() {
     var cookie = $.cookie('mapSettings');
     var latlng = [50, 20], zoom = 5;
-    console.log(cookie);
     if (cookie) {
         var a = cookie.split('|');
 
@@ -132,6 +131,7 @@ $(function() {
 
     initGeoJSON();
     initSummary();
+    initBboxMode();
 
     // Zoom level handling.
     var layerSwitcher = function() {
@@ -141,22 +141,22 @@ $(function() {
             !map.hasLayer(geoJSON) && map.addLayer(geoJSON);
             map.removeLayer(markers);
             map.removeLayer(markersLayer);
+            map.removeLayer(bboxTileLayer);
             $('#zoominfo').html("");
         } else {
-            mode = 'SUMMARY';
+            mode = 'BBOXES';
             if (mode == 'SUMMARY') {
                 !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
                 !map.hasLayer(markers) && map.addLayer(markers);
                 map.removeLayer(geoJSON);
                 map.removeLayer(geoJSONLayer);
-                $('#zoominfo').html("Zoom in for changeset details");
+                map.removeLayer(bboxTileLayer);
             } else if (mode == 'BBOXES') {
-                !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
-                !map.hasLayer(markers) && map.addLayer(markers);
+                !map.hasLayer(bboxTileLayer) && map.addLayer(bboxTileLayer);
                 map.removeLayer(geoJSON);
                 map.removeLayer(geoJSONLayer);
-                $('#zoominfo').html("Zoom in for changeset details");
             }
+            $('#zoominfo').html("Zoom in for changeset details");
         }
     };
     layerSwitcher();
