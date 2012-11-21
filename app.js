@@ -1,124 +1,113 @@
-$(function() {
-    var mode;
-    var map, geoJSON, markers;
-    var changesets = [];
+var mode;
+var map;
+var changesets = [];
+var templates;
 
-    // Updates feed link by generating the URL based on tile range for the currently visible viewport.
-    function updateFeedLink() {
-        var bounds = map.getPixelBounds(),
-          nwTilePoint = new L.Point(
-            Math.floor(bounds.min.x / markers.options.tileSize),
-            Math.floor(bounds.min.y / markers.options.tileSize)),
-          seTilePoint = new L.Point(
-            Math.floor(bounds.max.x / markers.options.tileSize),
-            Math.floor(bounds.max.y / markers.options.tileSize));
+// Updates feed link by generating the URL based on tile range for the currently visible viewport.
+function updateFeedLink() {
+    var bounds = map.getPixelBounds(),
+      nwTilePoint = new L.Point(
+        Math.floor(bounds.min.x / markers.options.tileSize),
+        Math.floor(bounds.min.y / markers.options.tileSize)),
+      seTilePoint = new L.Point(
+        Math.floor(bounds.max.x / markers.options.tileSize),
+        Math.floor(bounds.max.y / markers.options.tileSize));
 
-        $('#feed_link').attr('href', $.owlviewer.owl_api_url + 'changesets/'
-            + map.getZoom() + '/'
-            + nwTilePoint.x + '/' + nwTilePoint.y + '/'
-            + seTilePoint.x + '/' + seTilePoint.y + '.atom'
-        );
-    }
+    $('#feed_link').attr('href', $.owlviewer.owl_api_url + 'changesets/'
+        + map.getZoom() + '/'
+        + nwTilePoint.x + '/' + nwTilePoint.y + '/'
+        + seTilePoint.x + '/' + seTilePoint.y + '.atom'
+    );
+}
 
-    // Extracts changesets from the GeoJSON layer.
-    function setChangesetsFromGeoJSON() {
-        var geojson = geoJSON.data();
-        changesets = [];
-        for (k in geojson) {
-            if (geojson[k] && geojson[k].features.length > 0) {
-                addChangeset(geojson[k].features[0].properties);
-            }
-        }
-        updateChangesetList();
-    }
-
-    // Extracts changesets from the summary tiles (marker) layer.
-    function setChangesetsFromSummaryTiles() {
-        var data = markers.data();
-        changesets = [];
-        for (k in data) {
-            if (data[k]) {
-                addChangeset(data[k].latest_changeset);
-            }
-        }
-        updateChangesetList();
-    }
-
-    function resetChangesetList() {
-        if (mode == 'GEOJSON') {
-            setChangesetsFromGeoJSON();
-        } else if (mode == 'SUMMARY') {
-            setChangesetsFromSummaryTiles();
+// Extracts changesets from the GeoJSON layer.
+function setChangesetsFromGeoJSON() {
+    var geojson = geoJSON.data();
+    changesets = [];
+    for (k in geojson) {
+        if (geojson[k] && geojson[k].features.length > 0) {
+            addChangeset(geojson[k].features[0].properties);
         }
     }
+    updateChangesetList();
+}
 
-    function addChangeset(changeset) {
-        if (!changeset) { return; }
-        changesets.push(changeset);
+function resetChangesetList() {
+    if (mode == 'GEOJSON') {
+        setChangesetsFromGeoJSON();
+    } else if (mode == 'SUMMARY') {
+        setChangesetsFromSummaryTiles();
     }
+}
 
-    function updateChangesetList() {
-        $('#changesets').empty();
-        _(changesets)
-            .chain()
-            .reduce(function(m, f) {
-                m[f.id] = f;
-                return m;
-            }, {})
-            .sortBy(function(p) {
-                return p.id * -1;
-            })
-            .each(function(p) {
-                $('#changesets').append(templates.changeset(p));
-            });
-        $('.changeset').on('hover', function(e) {
-            if (e.target.id.length == 0) {
-                // Not a changeset list element!?
-                return;
-            }
-            var changeset_id = e.target.id.split('-')[1];
-            var details_el = $(e.target).children('div[class=stats]');
-            e.type == "mouseenter" ? details_el.show() : details_el.hide();
-            // Now highlight all features for that changeset.
-            geoJSONLayer.eachLayer(function(layer) {
-                  if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
-                      // Not what we're looking for.
-                      return;
-                  }
-                  if (e.type == "mouseenter") {
-                      layer.setStyle({
-                          "color": "blue",
-                          "opacity": 0.05,
-                          "fillOpacity": 0.05
-                      });
-                  } else {
-                      layer.setStyle(geoJSONStyle);
-                  }
-            });
+function addChangeset(changeset) {
+    if (!changeset) { return; }
+    changesets.push(changeset);
+}
+
+function updateChangesetList() {
+    $('#changesets').empty();
+    _(changesets)
+        .chain()
+        .reduce(function(m, f) {
+            m[f.id] = f;
+            return m;
+        }, {})
+        .sortBy(function(p) {
+            return p.id * -1;
+        })
+        .each(function(p) {
+            $('#changesets').append(templates.changeset(p));
         });
-    }
-
-    // Loads center and zoom from a cookie.
-    function loadMapSettings() {
-        var cookie = $.cookie('mapSettings');
-        var latlng = [50, 20], zoom = 5;
-        console.log(cookie);
-        if (cookie) {
-            var a = cookie.split('|');
-
-            latlng = [a[1], a[2]];
-            zoom = a[0];
+    $('.changeset').on('hover', function(e) {
+        if (e.target.id.length == 0) {
+            // Not a changeset list element!?
+            return;
         }
-        map.setView(latlng, zoom, false);
-    }
+        var changeset_id = e.target.id.split('-')[1];
+        var details_el = $(e.target).children('div[class=stats]');
+        e.type == "mouseenter" ? details_el.show() : details_el.hide();
+        // Now highlight all features for that changeset.
+        geoJSONLayer.eachLayer(function(layer) {
+              if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
+                  // Not what we're looking for.
+                  return;
+              }
+              if (e.type == "mouseenter") {
+                  layer.setStyle({
+                      "color": "blue",
+                      "opacity": 0.05,
+                      "fillOpacity": 0.05
+                  });
+              } else {
+                  layer.setStyle(geoJSONStyle);
+              }
+        });
+    });
+}
 
-    // Saves current center and zoom to a cookie.
-    function saveMapSettings() {
-        $.cookie('mapSettings', map.getZoom() + '|' + map.getCenter().lat + '|' + map.getCenter().lng);
-    }
+// Loads center and zoom from a cookie.
+function loadMapSettings() {
+    var cookie = $.cookie('mapSettings');
+    var latlng = [50, 20], zoom = 5;
+    console.log(cookie);
+    if (cookie) {
+        var a = cookie.split('|');
 
+        latlng = [a[1], a[2]];
+        zoom = a[0];
+    }
+    map.setView(latlng, zoom, false);
+}
+
+// Saves current center and zoom to a cookie.
+function saveMapSettings() {
+    $.cookie('mapSettings', map.getZoom() + '|' + map.getCenter().lat + '|' + map.getCenter().lng);
+}
+
+$(function() {
     // Set up templates
-    var templates = _($('script[name]')).reduce(function(memo, el) {
+    templates = _($('script[name]')).reduce(function(memo, el) {
         memo[el.getAttribute('name')] = _(el.innerHTML).template();
         return memo;
     }, {});
@@ -141,91 +130,8 @@ $(function() {
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Add summary tiles.
-    var markersLayer = L.layerGroup();
-    map.addLayer(markersLayer);
-
-    markers = new L.TileLayer.Marker($.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}');
-
-    map.on('viewreset', function (e) {
-        markersLayer.clearLayers();
-    });
-
-    markers.on('tileload', function(e) {
-        var t = e.tile;
-        var icon = L.divIcon({
-            html: templates.summarytile(t.data),
-            className: 'summary-tile',
-            iconSize: [256, 256]
-        });
-        markersLayer.addLayer(L.marker(t.location, {icon: icon}));
-        setChangesetsFromSummaryTiles();
-    });
-    markers.on('loading', function(e) {
-        $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
-    });
-    markers.on('load', function(e) {
-        //$('#zoominfo').html("<div class='info'>Zoom in to see<br>changeset details.</div>");
-    });
-
-    // Add GeoJSON feature layer
-    L.ExtendedGeoJSON = L.GeoJSON.extend({
-        addData: function (geojson) {
-            var add = true;
-            this.eachLayer(function(layer) {
-                if ((typeof layer.feature == 'undefined') && layer.feature.id == geojson.id) {
-                  // Already added.
-                  add = false;
-                  return;
-                }
-            });
-            if (add && (typeof geojson != 'undefined')) {
-                L.GeoJSON.prototype.addData.apply(this, arguments);
-            }
-        }
-    });
-
-    var geoJSONStyle = {
-        "color": "yellow",
-        "fillColor": "yellow",
-        "weight": 10,
-        "opacity": 0.75,
-        "fillOpacity": 0.75
-    };
-    var geoJSONLayer = new L.ExtendedGeoJSON(null, {
-        pointToLayer: function(featureData, latlng) {
-            return new L.Circle(latlng, 2);
-        },
-        onEachFeature: function (feature, layer) {
-            var id = '#changeset-' + feature.properties.id;
-            layer.setStyle(geoJSONStyle);
-            layer.on('mouseover', function() {
-                layer.setStyle({
-                    "color": "blue",
-                    "opacity": 0.05,
-                    "fillOpacity": 0.05
-                });
-                $(id).addClass('highlight');
-            });
-            layer.on('mouseout', function() {
-                layer.setStyle(geoJSONStyle);
-                $(id).removeClass('highlight');
-            });
-        }
-    });
-    map.addLayer(geoJSONLayer);
-
-    // Add loader for tiled GeoJSON
-    geoJSON = new L.TileLayer.GeoJSON($.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}.geojson');
-    geoJSON.on('loading', function(e) {
-        $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
-    });
-    geoJSON.on('load', function(e) {
-        // Add data to geoJSON layer and populate changeset list
-        var data = geoJSON.data();
-        geoJSONLayer.addData(data);
-        setChangesetsFromGeoJSON();
-    });
+    initGeoJSON();
+    initSummary();
 
     // Zoom level handling.
     var layerSwitcher = function() {
@@ -238,11 +144,19 @@ $(function() {
             $('#zoominfo').html("");
         } else {
             mode = 'SUMMARY';
-            !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
-            !map.hasLayer(markers) && map.addLayer(markers);
-            map.removeLayer(geoJSON);
-            map.removeLayer(geoJSONLayer);
-            $('#zoominfo').html("Zoom in for changeset details");
+            if (mode == 'SUMMARY') {
+                !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
+                !map.hasLayer(markers) && map.addLayer(markers);
+                map.removeLayer(geoJSON);
+                map.removeLayer(geoJSONLayer);
+                $('#zoominfo').html("Zoom in for changeset details");
+            } else if (mode == 'BBOXES') {
+                !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
+                !map.hasLayer(markers) && map.addLayer(markers);
+                map.removeLayer(geoJSON);
+                map.removeLayer(geoJSONLayer);
+                $('#zoominfo').html("Zoom in for changeset details");
+            }
         }
     };
     layerSwitcher();
