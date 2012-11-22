@@ -53,8 +53,8 @@ function updateChangesetList() {
             return;
         }
         var changeset_id = e.target.id.split('-')[1];
-        var details_el = $(e.target).children('div[class=stats]');
-        e.type == "mouseenter" ? details_el.show() : details_el.hide();
+        //var details_el = $(e.target).children('div[class=stats]');
+        //e.type == "mouseenter" ? details_el.show() : details_el.hide();
         // Now highlight all features for that changeset.
         geoJSONLayer.eachLayer(function(layer) {
               if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
