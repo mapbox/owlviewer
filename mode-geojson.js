@@ -66,8 +66,10 @@ function setChangesetsFromGeoJSON() {
     var geojson = geoJSON.data();
     changesets = [];
     for (k in geojson) {
-        if (geojson[k] && geojson[k].features.length > 0) {
-            addChangeset(geojson[k].features[0].properties);
+        if (geojson[k]) {
+            for (j in geojson[k].features) {
+                addChangeset(geojson[k].features[j].properties);
+            }
         }
     }
     updateChangesetList();
