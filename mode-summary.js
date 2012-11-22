@@ -1,11 +1,15 @@
 var markers, markersLayer;
 
+function getSummaryUrl() {
+    return $.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}?timelimit=' + getTimelimit();
+}
+
 function initSummary() {
     // Add summary tiles.
     markersLayer = L.layerGroup();
     map.addLayer(markersLayer);
 
-    markers = new L.TileLayer.Marker($.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}');
+    markers = new L.TileLayer.Marker(getSummaryUrl());
 
     map.on('viewreset', function (e) {
         markersLayer.clearLayers();
@@ -30,6 +34,7 @@ function initSummary() {
 }
 
 function enableMode_Summary() {
+    markers.setUrl(getSummaryUrl(), true);
     !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
     !map.hasLayer(markers) && map.addLayer(markers);
 }

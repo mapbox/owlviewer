@@ -1,5 +1,9 @@
 var geoJSON, geoJSONLayer, geoJSONStyle;
 
+function getGeoJSONUrl() {
+    return $.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}.geojson?timelimit=' + getTimelimit();
+}
+
 function initGeoJSON() {
     // Add GeoJSON feature layer
     L.ExtendedGeoJSON = L.GeoJSON.extend({
@@ -48,7 +52,7 @@ function initGeoJSON() {
     map.addLayer(geoJSONLayer);
 
     // Add loader for tiled GeoJSON
-    geoJSON = new L.TileLayer.GeoJSON($.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}.geojson');
+    geoJSON = new L.TileLayer.GeoJSON(getGeoJSONUrl());
     geoJSON.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
@@ -61,6 +65,7 @@ function initGeoJSON() {
 }
 
 function enableMode_GeoJSON() {
+    markers.setUrl(getGeoJSONUrl(), true);
     !map.hasLayer(geoJSONLayer) && map.addLayer(geoJSONLayer);
     !map.hasLayer(geoJSON) && map.addLayer(geoJSON);
 }

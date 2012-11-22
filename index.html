@@ -108,10 +108,11 @@
         <option value="BBOXES">bounding boxes</option>
         <option value="GEOJSON">geometry</option>
       </select>
-      <select id="status_time">
-        <option>since 'forever'</option>
-        <option>from the last 7 days</option>
-        <option>from the last 24 hours</option>
+      <select id="status_timelimit">
+        <option value="24" selected>from the last 24 hours</option>
+        <option value="168">from the last 7 days</option>
+        <option value="672">from the last month</option>
+        <option value="0">since 'forever'</option>
       </select>
     </script>
   </body>

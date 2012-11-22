@@ -82,6 +82,10 @@ function unhighlightChangeset(id) {
     $('#changeset-' + id).removeClass('highlight');
 }
 
+function getTimelimit() {
+    return parseInt($("#status_timelimit").val());
+}
+
 // Loads center and zoom from a cookie.
 function loadMapSettings() {
     var cookie = $.cookie('mapSettings');
@@ -100,18 +104,27 @@ function saveMapSettings() {
     $.cookie('mapSettings', map.getZoom() + '|' + map.getCenter().lat + '|' + map.getCenter().lng);
 }
 
-function switchMode(newMode) {
+function switchMode(newMode, reset) {
     if (newMode == 'GEOJSON') {
+        if (reset) {
+            disableMode_GeoJSON();
+        }
         enableMode_GeoJSON();
         disableMode_Summary();
         disableMode_Bboxes();
         $('#status_mode').val('GEOJSON');
     } else if (newMode == 'BBOXES') {
+        if (reset) {
+            disableMode_Bboxes();
+        }
         enableMode_Bboxes();
         disableMode_GeoJSON();
         disableMode_Summary();
         $('#status_mode').val('BBOXES');
     } else if (newMode == 'SUMMARY') {
+        if (reset) {
+            disableMode_Summary();
+        }
         enableMode_Summary();
         disableMode_GeoJSON();
         disableMode_Bboxes();
@@ -149,6 +162,8 @@ $(function() {
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
+    updateStatusbar();
+
     initGeoJSON();
     initSummary();
     initBboxMode();
@@ -156,21 +171,25 @@ $(function() {
     // Zoom level handling.
     var layerSwitcher = function() {
         if (map.getZoom() >= 16) {
-            switchMode('GEOJSON');
+            switchMode('GEOJSON', false);
         } else if (map.getZoom() >= 10) {
-            switchMode('BBOXES');
+            switchMode('BBOXES', false);
         } else {
-            switchMode('SUMMARY');
+            switchMode('SUMMARY', false);
         }
     };
     layerSwitcher();
     map.on('zoomend', layerSwitcher);
 
     updateFeedLink();
-    updateStatusbar();
 
     $('#status_mode').on('change', function (e) {
-        switchMode(e.target.options[e.target.selectedIndex].value);
+        switchMode($(e.target).val(), false);
+    });
+
+    $('#status_timelimit').on('change', function (e) {
+        console.log(getTimelimit());
+        switchMode(mode, true);
     });
 
     // Active state handling.

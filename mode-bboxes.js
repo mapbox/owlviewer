@@ -1,8 +1,12 @@
 var bboxTileLayer;
 var bboxes = [];
 
+function getBboxUrl() {
+    return $.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}.json?limit=5&timelimit=' + getTimelimit();
+}
+
 function initBboxMode() {
-    bboxTileLayer = new L.TileLayer.Data($.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}.json?limit=5');
+    bboxTileLayer = new L.TileLayer.Data(getBboxUrl());
 
     bboxTileLayer.on('tileload', function(e) {
         var t = e.tile;
@@ -17,6 +21,7 @@ function initBboxMode() {
 }
 
 function enableMode_Bboxes() {
+    bboxTileLayer.setUrl(getBboxUrl(), true);
     !map.hasLayer(bboxTileLayer) && map.addLayer(bboxTileLayer);
 }
 
