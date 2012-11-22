@@ -74,6 +74,14 @@ function updateChangesetList() {
     });
 }
 
+function highlightChangeset(id) {
+    $('#changeset-' + id).addClass('highlight');
+}
+
+function unhighlightChangeset(id) {
+    $('#changeset-' + id).removeClass('highlight');
+}
+
 // Loads center and zoom from a cookie.
 function loadMapSettings() {
     var cookie = $.cookie('mapSettings');

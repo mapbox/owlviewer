@@ -30,7 +30,6 @@ function initGeoJSON() {
             return new L.Circle(latlng, 2);
         },
         onEachFeature: function (feature, layer) {
-            var id = '#changeset-' + feature.properties.id;
             layer.setStyle(geoJSONStyle);
             layer.on('mouseover', function() {
                 layer.setStyle({
@@ -38,11 +37,11 @@ function initGeoJSON() {
                     "opacity": 0.05,
                     "fillOpacity": 0.05
                 });
-                $(id).addClass('highlight');
+                highlightChangeset(feature.properties.id);
             });
             layer.on('mouseout', function() {
                 layer.setStyle(geoJSONStyle);
-                $(id).removeClass('highlight');
+                unhighlightChangeset(feature.properties.id);
             });
         }
     });
