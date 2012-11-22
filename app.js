@@ -20,18 +20,6 @@ function updateFeedLink() {
     );
 }
 
-// Extracts changesets from the GeoJSON layer.
-function setChangesetsFromGeoJSON() {
-    var geojson = geoJSON.data();
-    changesets = [];
-    for (k in geojson) {
-        if (geojson[k] && geojson[k].features.length > 0) {
-            addChangeset(geojson[k].features[0].properties);
-        }
-    }
-    updateChangesetList();
-}
-
 function resetChangesetList() {
     if (mode == 'GEOJSON') {
         setChangesetsFromGeoJSON();
