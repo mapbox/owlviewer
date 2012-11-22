@@ -125,26 +125,21 @@ $(function() {
     var layerSwitcher = function() {
         if (map.getZoom() >= 16) {
             mode = 'GEOJSON';
-            !map.hasLayer(geoJSONLayer) && map.addLayer(geoJSONLayer);
-            !map.hasLayer(geoJSON) && map.addLayer(geoJSON);
-            map.removeLayer(markers);
-            map.removeLayer(markersLayer);
-            map.removeLayer(bboxTileLayer);
+            enableMode_GeoJSON();
+            disableMode_Summary();
+            disableMode_Bboxes();
             $('#zoominfo').html("");
         } else if (map.getZoom() >= 10) {
             mode = 'BBOXES';
-            !map.hasLayer(bboxTileLayer) && map.addLayer(bboxTileLayer);
-            map.removeLayer(geoJSON);
-            map.removeLayer(geoJSONLayer);
-            map.removeLayer(markers);
-            map.removeLayer(markersLayer);
+            enableMode_Bboxes();
+            disableMode_GeoJSON();
+            disableMode_Summary();
             $('#zoominfo').html("Zoom in for changeset details");
         } else {
             mode = 'SUMMARY';
-            !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
-            !map.hasLayer(markers) && map.addLayer(markers);
-            map.removeLayer(geoJSON);
-            map.removeLayer(geoJSONLayer);
+            enableMode_Summary();
+            disableMode_GeoJSON();
+            disableMode_Bboxes();
             map.removeLayer(bboxTileLayer);
             $('#zoominfo').html("Zoom in for changeset details");
         }

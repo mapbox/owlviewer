@@ -29,6 +29,16 @@ function initSummary() {
     });
 }
 
+function enableMode_Summary() {
+    !map.hasLayer(markersLayer) && map.addLayer(markersLayer);
+    !map.hasLayer(markers) && map.addLayer(markers);
+}
+
+function disableMode_Summary() {
+    map.removeLayer(markers);
+    map.removeLayer(markersLayer);
+}
+
 // Extracts changesets from the summary tiles (marker) layer.
 function setChangesetsFromSummaryTiles() {
     var data = markers.data();

@@ -61,6 +61,16 @@ function initGeoJSON() {
     });
 }
 
+function enableMode_GeoJSON() {
+    !map.hasLayer(geoJSONLayer) && map.addLayer(geoJSONLayer);
+    !map.hasLayer(geoJSON) && map.addLayer(geoJSON);
+}
+
+function disableMode_GeoJSON() {
+    map.removeLayer(geoJSON);
+    map.removeLayer(geoJSONLayer);
+}
+
 // Extracts changesets from the GeoJSON layer.
 function setChangesetsFromGeoJSON() {
     var geojson = geoJSON.data();

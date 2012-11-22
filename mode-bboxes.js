@@ -16,6 +16,14 @@ function initBboxMode() {
     });
 }
 
+function enableMode_Bboxes() {
+    !map.hasLayer(bboxTileLayer) && map.addLayer(bboxTileLayer);
+}
+
+function disableMode_Bboxes() {
+    map.removeLayer(bboxTileLayer);
+}
+
 // Extracts changesets from the summary tiles (marker) layer.
 function setChangesetsFromBboxes() {
     for (k in bboxes) {
