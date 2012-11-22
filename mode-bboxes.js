@@ -41,7 +41,38 @@ function setChangesetsFromBboxes() {
             if (data[k][j].tile_bbox) {
                 var bounds = [[data[k][j].tile_bbox[1], data[k][j].tile_bbox[0]],
                     [data[k][j].tile_bbox[3], [data[k][j].tile_bbox[2]]]];
-                var layer = L.rectangle(bounds, {color: "#ff7800", weight: 1, fillColor: 'red', fillOpacity: 0.25}).addTo(map);
+                var layer = L.rectangle(bounds, {
+                    changeset_id: data[k][j].id,
+                    color: 'black',
+                    opacity: 1,
+                    weight: 1,
+                    fillColor: 'red',
+                    fillOpacity: 0.25}).addTo(map);
+                layer.on('mouseover', function (e) {
+                    highlightChangeset(e.target.options.changeset_id);
+                    for (i in bboxes) {
+                        if (e.target.options.changeset_id == bboxes[i].options.changeset_id) {
+                            bboxes[i].setStyle({
+                                fillColor: 'blue',
+                                fillOpacity: 0.25
+                            });
+                        }
+                    }
+                });
+                layer.on('mouseout', function (e) {
+                    unhighlightChangeset(e.target.options.changeset_id);
+                    for (i in bboxes) {
+                        if (e.target.options.changeset_id == bboxes[i].options.changeset_id) {
+                            bboxes[i].setStyle({
+                                color: 'black',
+                                opacity: 1,
+                                weight: 1,
+                                fillColor: 'red',
+                                fillOpacity: 0.25
+                            });
+                        }
+                    }
+                });
                 bboxes.push(layer);
             }
         }
