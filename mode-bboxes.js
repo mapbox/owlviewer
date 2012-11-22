@@ -22,6 +22,9 @@ function enableMode_Bboxes() {
 
 function disableMode_Bboxes() {
     map.removeLayer(bboxTileLayer);
+    for (k in bboxes) {
+        map.removeLayer(bboxes[k]);
+    }
 }
 
 // Extracts changesets from the summary tiles (marker) layer.

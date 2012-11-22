@@ -37,6 +37,7 @@ function enableMode_Summary() {
 function disableMode_Summary() {
     map.removeLayer(markers);
     map.removeLayer(markersLayer);
+    markersLayer.clearLayers();
 }
 
 // Extracts changesets from the summary tiles (marker) layer.

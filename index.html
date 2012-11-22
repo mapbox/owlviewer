@@ -34,7 +34,6 @@
         <div class='inner'>
           <h2>Recent contributions to the map</h2>
         </div>
-        <div id='zoominfo'></div>
       </div>
 
       <div class='content'>
@@ -74,6 +73,7 @@
       </div>
 
       <div id='map'></div>
+      <div id='statusbar'></div>
       <div id='attribution'><a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a></div>
     </div>
 
@@ -101,5 +101,18 @@
       </div>
     </script>
 
+    <script name="statusbar" type="text/html">
+      Currently showing
+      <select id="status_mode">
+        <option value="SUMMARY">summary tiles</option>
+        <option value="BBOXES">bounding boxes</option>
+        <option value="GEOJSON">geometry</option>
+      </select>
+      <select id="status_time">
+        <option>since 'forever'</option>
+        <option>from the last 7 days</option>
+        <option>from the last 24 hours</option>
+      </select>
+    </script>
   </body>
 </html>

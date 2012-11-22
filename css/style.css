@@ -109,6 +109,20 @@ em { font-style: italic;}
   right: 0;
 }
 
+#statusbar {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(255, 255, 255, 0.75);
+  font-size: 30px;
+  margin: 5px;
+  padding: 5px;
+}
+
+#statusbar select {
+  font-size: 30px;
+}
+
 #sidebar {
   position: absolute;
   left: 0;
@@ -126,13 +140,13 @@ em { font-style: italic;}
   color: white;
   background-color: #312c33;
   z-index: 1;
-  height: 140px;
+  height: 100px;
   border-bottom: 1px solid #d2c7d6;
 }
 
 #changesets {
   position: absolute;
-  top: 141px;
+  top: 101px;
   bottom: 39px;
   left: 0; right: 0;
   overflow: auto;

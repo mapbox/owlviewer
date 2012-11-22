@@ -92,6 +92,30 @@ function saveMapSettings() {
     $.cookie('mapSettings', map.getZoom() + '|' + map.getCenter().lat + '|' + map.getCenter().lng);
 }
 
+function switchMode(newMode) {
+    if (newMode == 'GEOJSON') {
+        enableMode_GeoJSON();
+        disableMode_Summary();
+        disableMode_Bboxes();
+        $('#status_mode').val('GEOJSON');
+    } else if (newMode == 'BBOXES') {
+        enableMode_Bboxes();
+        disableMode_GeoJSON();
+        disableMode_Summary();
+        $('#status_mode').val('BBOXES');
+    } else if (newMode == 'SUMMARY') {
+        enableMode_Summary();
+        disableMode_GeoJSON();
+        disableMode_Bboxes();
+        $('#status_mode').val('SUMMARY');
+    }
+    mode = newMode;
+}
+
+function updateStatusbar() {
+    $('#statusbar').html(templates.statusbar([]));
+}
+
 $(function() {
     // Set up templates
     templates = _($('script[name]')).reduce(function(memo, el) {
@@ -124,31 +148,22 @@ $(function() {
     // Zoom level handling.
     var layerSwitcher = function() {
         if (map.getZoom() >= 16) {
-            mode = 'GEOJSON';
-            enableMode_GeoJSON();
-            disableMode_Summary();
-            disableMode_Bboxes();
-            $('#zoominfo').html("");
+            switchMode('GEOJSON');
         } else if (map.getZoom() >= 10) {
-            mode = 'BBOXES';
-            enableMode_Bboxes();
-            disableMode_GeoJSON();
-            disableMode_Summary();
-            $('#zoominfo').html("Zoom in for changeset details");
+            switchMode('BBOXES');
         } else {
-            mode = 'SUMMARY';
-            enableMode_Summary();
-            disableMode_GeoJSON();
-            disableMode_Bboxes();
-            map.removeLayer(bboxTileLayer);
-            $('#zoominfo').html("Zoom in for changeset details");
+            switchMode('SUMMARY');
         }
-
     };
     layerSwitcher();
     map.on('zoomend', layerSwitcher);
 
     updateFeedLink();
+    updateStatusbar();
+
+    $('#status_mode').on('change', function (e) {
+        switchMode(e.target.options[e.target.selectedIndex].value);
+    });
 
     // Active state handling.
     $('.nav-container a').click(function() {
