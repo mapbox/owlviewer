@@ -172,7 +172,7 @@ $(function() {
     var layerSwitcher = function() {
         if (map.getZoom() >= 16) {
             switchMode('GEOJSON', false);
-        } else if (map.getZoom() >= 10) {
+        } else if (map.getZoom() >= 12) {
             switchMode('BBOXES', false);
         } else {
             switchMode('SUMMARY', false);
