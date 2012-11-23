@@ -17,6 +17,20 @@ L.TileLayer.Data = L.TileLayer.extend({
         }
         return result;
     },
+    tiles: function() {
+        var bounds = this.getTileBounds();
+        if (!bounds) { return; }
+        var result = {};
+        for (k in this._tiles) {
+            var tile_x = k.split(':')[0], tile_y = k.split(':')[1];
+            if (tile_x < bounds.min.x || tile_x > bounds.max.x || tile_y < bounds.min.y || tile_y > bounds.max.y) {
+                // Tile is out of bounds (not visible) - skip it.
+                continue;
+            }
+            result[k] = this._tiles[k];
+        }
+        return result;
+    },
     _addTile: function(tilePoint, container) {
         var tile = { data: null };
         this._tiles[tilePoint.x + ':' + tilePoint.y] = tile;

@@ -91,13 +91,8 @@
     </script>
 
     <script name="summarytile" type="text/html">
-      <div class='summary-tile'>
-        <div class='count'><%= num_changesets %></div>
-<!--        <% if (latest_changeset) { %>Latest changeset:
-          <div class='date'><span class='icon clock'></span><%= (new Date(latest_changeset.created_at)).nice() %></div>
-          <a class='id' href='http://www.openstreetmap.org/browse/changeset/<%=latest_changeset.id%>'>#<%=latest_changeset.id%></a>
-          <span class='user'>by <a href='http://www.openstreetmap.org/user/<%=latest_changeset.user_name%>'><strong><%=latest_changeset.user_name%></strong></a></span>
-        <% } %>-->
+      <div class='summary-tile-inner <%= divclass %>' style="width: <%= size %>px; height: <%= size %>px; border-radius: <%= size / 2 %>px; -moz-border-radius: <%= size / 2 %>px; -webkit-border-radius: <%= size / 2 %>px;">
+        <div class='count'><%= tiledata.num_changesets %></div>
       </div>
     </script>
 

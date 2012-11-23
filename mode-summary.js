@@ -4,6 +4,16 @@ function getSummaryUrl() {
     return $.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}?timelimit=' + getTimelimit();
 }
 
+function getClassNameForSummaryTile(tiledata, min, max) {
+    if (tiledata.num_changesets > min + 0.66 * (max - min)) {
+        return 'summary-tile-large';
+    } else if (tiledata.num_changesets > min + 0.33 * (max - min)) {
+        return 'summary-tile-medium';
+    } else {
+        return 'summary-tile-small';
+    }
+}
+
 function initSummary() {
     // Add summary tiles.
     markersLayer = L.layerGroup();
@@ -16,20 +26,36 @@ function initSummary() {
     });
 
     markers.on('tileload', function(e) {
-        var t = e.tile;
-        var icon = L.divIcon({
-            html: templates.summarytile(t.data),
-            className: 'summary-tile',
-            iconSize: [256, 256]
-        });
-        markersLayer.addLayer(L.marker(t.location, {icon: icon}));
         setChangesetsFromSummaryTiles();
     });
     markers.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
     markers.on('load', function(e) {
-        //$('#zoominfo').html("<div class='info'>Zoom in to see<br>changeset details.</div>");
+        markersLayer.clearLayers();
+
+        // First, find out min and max changeset counts in current viewport - useful to show relative sizes.
+        var minCount = null, maxCount = 0;
+        _(markers.data()).each(function (tile) {
+            if (tile.num_changesets > maxCount) {
+                maxCount = tile.num_changesets;
+            }
+            if (minCount == null || tile.num_changesets < minCount) {
+              minCount = tile.num_changesets;
+            }
+        });
+
+        // Now add markers with proper sizes..
+        _(markers.tiles()).each(function (tile) {
+            var cl = getClassNameForSummaryTile(tile.data, minCount, maxCount);
+            var size = parseInt((256 - 96) * (tile.data.num_changesets - minCount) / (maxCount - minCount) + 96);
+            var icon = L.divIcon({
+                html: templates.summarytile({tiledata: tile.data, size: size, divclass: cl}),
+                className: 'summary-tile',
+                iconSize: [size, size]
+            });
+            markersLayer.addLayer(L.marker(tile.location, {icon: icon}));
+        });
     });
 }
 
