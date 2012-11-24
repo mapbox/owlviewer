@@ -52,7 +52,11 @@ function initSummary() {
                 className: 'summary-tile',
                 iconSize: [size, size]
             });
-            markersLayer.addLayer(L.marker(tile.location, {icon: icon}));
+            var marker = L.marker(tile.location, {icon: icon});
+            markersLayer.addLayer(marker);
+            marker.on('click', function (e) {
+                map.setView(tile.location, map.getZoom() + 1);
+            });
         });
     });
 }
