@@ -47,30 +47,24 @@ function updateChangesetList() {
         .each(function(p) {
             $('#changesets').append(templates.changeset(p));
         });
-    $('.changeset').on('hover', function(e) {
+    $('.changeset').hover(function(e) {
         if (e.target.id.length == 0) {
             // Not a changeset list element!?
             return;
         }
         var changeset_id = e.target.id.split('-')[1];
+        highlightGeoJSON(changeset_id);
+        highlightBbox(changeset_id);
         //var details_el = $(e.target).children('div[class=stats]');
         //e.type == "mouseenter" ? details_el.show() : details_el.hide();
-        // Now highlight all features for that changeset.
-        geoJSONLayer.eachLayer(function(layer) {
-              if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
-                  // Not what we're looking for.
-                  return;
-              }
-              if (e.type == "mouseenter") {
-                  layer.setStyle({
-                      "color": "blue",
-                      "opacity": 0.05,
-                      "fillOpacity": 0.05
-                  });
-              } else {
-                  layer.setStyle(geoJSONStyle);
-              }
-        });
+    }, function(e) {
+        if (e.target.id.length == 0) {
+            // Not a changeset list element!?
+            return;
+        }
+        var changeset_id = e.target.id.split('-')[1];
+        unhighlightGeoJSON(changeset_id);
+        unhighlightBbox(changeset_id);
     });
 }
 

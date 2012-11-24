@@ -54,32 +54,42 @@ function setChangesetsFromBboxes() {
                     fillOpacity: 0.25}).addTo(map);
                 layer.on('mouseover', function (e) {
                     highlightChangeset(e.target.options.changeset_id);
-                    for (i in bboxes) {
-                        if (e.target.options.changeset_id == bboxes[i].options.changeset_id) {
-                            bboxes[i].setStyle({
-                                fillColor: 'blue',
-                                fillOpacity: 0.25
-                            });
-                        }
-                    }
+                    highlightBbox(e.target.options.changeset_id);
                 });
                 layer.on('mouseout', function (e) {
                     unhighlightChangeset(e.target.options.changeset_id);
-                    for (i in bboxes) {
-                        if (e.target.options.changeset_id == bboxes[i].options.changeset_id) {
-                            bboxes[i].setStyle({
-                                color: 'black',
-                                opacity: 1,
-                                weight: 1,
-                                fillColor: 'red',
-                                fillOpacity: 0.25
-                            });
-                        }
-                    }
+                    unhighlightBbox(e.target.options.changeset_id);
                 });
                 bboxes.push(layer);
             }
         }
     }
     updateChangesetList();
+}
+
+// Highlights all rectangles for given changeset.
+function highlightBbox(changeset_id) {
+    for (i in bboxes) {
+        if (changeset_id == bboxes[i].options.changeset_id) {
+            bboxes[i].setStyle({
+                fillColor: 'blue',
+                fillOpacity: 0.25
+            });
+        }
+    }
+}
+
+// Unhighlights all rectangles for given changeset.
+function unhighlightBbox(changeset_id) {
+    for (i in bboxes) {
+        if (changeset_id == bboxes[i].options.changeset_id) {
+            bboxes[i].setStyle({
+                color: 'black',
+                opacity: 1,
+                weight: 1,
+                fillColor: 'red',
+                fillOpacity: 0.25
+            });
+        }
+    }
 }

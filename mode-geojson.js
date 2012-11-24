@@ -88,3 +88,29 @@ function setChangesetsFromGeoJSON() {
     }
     updateChangesetList();
 }
+
+// Highlights all features for given changeset.
+function highlightGeoJSON(changeset_id) {
+    geoJSONLayer.eachLayer(function(layer) {
+        if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
+            // Not what we're looking for.
+            return;
+        }
+        layer.setStyle({
+            "color": "blue",
+            "opacity": 0.05,
+            "fillOpacity": 0.05
+        });
+    });
+}
+
+// Unhighlights all features for given changeset.
+function unhighlightGeoJSON(changeset_id) {
+    geoJSONLayer.eachLayer(function(layer) {
+        if ((typeof layer.setStyle == 'undefined') || layer.feature.id.indexOf(changeset_id) != 0) {
+            // Not what we're looking for.
+            return;
+        }
+        layer.setStyle(geoJSONStyle);
+    });
+}
