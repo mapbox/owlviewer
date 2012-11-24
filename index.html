@@ -20,6 +20,7 @@
     <script src='mode-geojson.js'></script>
     <script src='mode-summary.js'></script>
     <script src='mode-bboxes.js'></script>
+    <script src='mode-changeset.js'></script>
     <script src='app.js'></script>
   </head>
 
@@ -109,6 +110,14 @@
         <option value="672">from the last month</option>
         <option value="0">since 'forever'</option>
       </select>
+    </script>
+
+    <script name="statusbar_changeset" type="text/html">
+      Currently showing changeset <%= id %> <a href="" id="reset_settings">[back to browsing]</a>
+    </script>
+
+    <script name="statusbar_reset_settings" type="text/html">
+      <a id="reset_settings">[reset to default]</a>
     </script>
   </body>
 </html>

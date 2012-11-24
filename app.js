@@ -2,6 +2,20 @@ var mode;
 var map;
 var changesets = [];
 var templates;
+var show;
+var customSettings = false; // If true, user changed something in default settings (mode, timelimit etc).
+
+function setModeForZoomLevel() {
+    if (!customSettings) {
+        if (map.getZoom() >= 16) {
+            switchMode('GEOJSON', false);
+        } else if (map.getZoom() >= 12) {
+            switchMode('BBOXES', false);
+        } else {
+            switchMode('SUMMARY', false);
+        }
+    }
+}
 
 // Updates feed link by generating the URL based on tile range for the currently visible viewport.
 function updateFeedLink() {
@@ -58,6 +72,8 @@ function updateChangesetList() {
         .each(function(p) {
             $('#changesets').append(templates.changeset(p));
         });
+
+    // Hover event handling.
     $('.changeset').hover(function(e) {
         var changeset_id = getChangesetIdFromListElement(e.target);
         highlightGeoJSON(changeset_id);
@@ -69,6 +85,15 @@ function updateChangesetList() {
         unhighlightGeoJSON(changeset_id);
         unhighlightBbox(changeset_id);
     });
+
+    // Click event handling.
+    $('.changeset').on('click', function(e) {
+        enableCustomSettings();
+        var changeset_id = getChangesetIdFromListElement(e.target);
+        deactivateChangeset(inspectedChangesetId);
+        inspectedChangesetId = changeset_id;
+        switchMode('CHANGESET', true);
+    });
 }
 
 function highlightChangeset(id) {
@@ -76,6 +101,14 @@ function highlightChangeset(id) {
 }
 
 function unhighlightChangeset(id) {
+    $('#changeset-' + id).removeClass('highlight');
+}
+
+function activateChangeset(id) {
+    $('#changeset-' + id).addClass('highlight');
+}
+
+function deactivateChangeset(id) {
     $('#changeset-' + id).removeClass('highlight');
 }
 
@@ -106,32 +139,55 @@ function switchMode(newMode, reset) {
         if (reset) {
             disableMode_GeoJSON();
         }
-        enableMode_GeoJSON();
         disableMode_Summary();
         disableMode_Bboxes();
+        disableMode_Changeset();
+        enableMode_GeoJSON();
         $('#status_mode').val('GEOJSON');
     } else if (newMode == 'BBOXES') {
         if (reset) {
             disableMode_Bboxes();
         }
-        enableMode_Bboxes();
         disableMode_GeoJSON();
         disableMode_Summary();
+        disableMode_Changeset();
+        enableMode_Bboxes();
         $('#status_mode').val('BBOXES');
     } else if (newMode == 'SUMMARY') {
         if (reset) {
             disableMode_Summary();
         }
-        enableMode_Summary();
         disableMode_GeoJSON();
         disableMode_Bboxes();
+        disableMode_Changeset();
+        enableMode_Summary();
+        $('#status_mode').val('SUMMARY');
+    } else if (newMode == 'CHANGESET') {
+        if (reset) {
+            disableMode_Changeset();
+        }
+        disableMode_GeoJSON();
+        disableMode_Bboxes();
+        disableMode_Summary();
+        enableMode_Changeset();
         $('#status_mode').val('SUMMARY');
     }
     mode = newMode;
 }
 
-function updateStatusbar() {
-    $('#statusbar').html(templates.statusbar([]));
+function updateStatusbar(html) {
+    $('#statusbar').html(html);
+    $('#reset_settings').on('click', function (e) {
+        customSettings = false;
+        updateStatusbar(templates.statusbar());
+        setModeForZoomLevel();
+        return false;
+    });
+}
+
+function enableCustomSettings() {
+    customSettings = true;
+    //updateStatusbar($('#statusbar').html() + templates.statusbar_reset_settings());
 }
 
 $(function() {
@@ -154,38 +210,29 @@ $(function() {
     new L.Hash(map);
 
     // Handle RSS/ATOM feed link updates.
-    map.on('moveend', function (e) { saveMapSettings(); updateFeedLink(); resetChangesetList(); });
-    map.on('zoomend', function (e) { saveMapSettings(); updateFeedLink(); resetChangesetList(); });
+    map.on('moveend', function (e) { saveMapSettings(); updateFeedLink(); });
+    map.on('zoomend', function (e) { saveMapSettings(); updateFeedLink(); });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    updateStatusbar();
+    updateStatusbar(templates.statusbar());
 
     initGeoJSON();
     initSummary();
     initBboxMode();
+    initChangesetMode();
 
-    // Zoom level handling.
-    var layerSwitcher = function() {
-        if (map.getZoom() >= 16) {
-            switchMode('GEOJSON', false);
-        } else if (map.getZoom() >= 12) {
-            switchMode('BBOXES', false);
-        } else {
-            switchMode('SUMMARY', false);
-        }
-    };
-    layerSwitcher();
-    map.on('zoomend', layerSwitcher);
+    setModeForZoomLevel();
+    map.on('zoomend', setModeForZoomLevel);
 
     updateFeedLink();
 
     $('#status_mode').on('change', function (e) {
+        enableCustomSettings();
         switchMode($(e.target).val(), false);
     });
 
     $('#status_timelimit').on('change', function (e) {
-        console.log(getTimelimit());
         switchMode(mode, true);
     });
 

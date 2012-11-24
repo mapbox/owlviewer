@@ -68,8 +68,8 @@ function enableMode_Summary() {
 }
 
 function disableMode_Summary() {
-    map.removeLayer(markers);
-    map.removeLayer(markersLayer);
+    map.hasLayer(markers) && map.removeLayer(markers);
+    map.hasLayer(markersLayer) && map.removeLayer(markersLayer);
     markersLayer.clearLayers();
 }
 

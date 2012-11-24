@@ -25,9 +25,9 @@ function enableMode_Bboxes() {
 }
 
 function disableMode_Bboxes() {
-    map.removeLayer(bboxTileLayer);
+    map.hasLayer(bboxTileLayer) && map.removeLayer(bboxTileLayer);
     for (k in bboxes) {
-        map.removeLayer(bboxes[k]);
+        map.hasLayer(bboxes[k]) && map.removeLayer(bboxes[k]);
     }
 }
 
