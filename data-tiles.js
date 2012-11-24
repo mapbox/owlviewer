@@ -8,6 +8,9 @@ L.TileLayer.Data = L.TileLayer.extend({
         if (!bounds) { return; }
         var result = [];
         for (k in this._tiles) {
+            if (this._tiles[k].data == null) {
+                continue;
+            }
             var tile_x = k.split(':')[0], tile_y = k.split(':')[1];
             if (tile_x < bounds.min.x || tile_x > bounds.max.x || tile_y < bounds.min.y || tile_y > bounds.max.y) {
                 // Tile is out of bounds (not visible) - skip it.
@@ -22,6 +25,9 @@ L.TileLayer.Data = L.TileLayer.extend({
         if (!bounds) { return; }
         var result = {};
         for (k in this._tiles) {
+            if (this._tiles[k].data == null) {
+                continue;
+            }
             var tile_x = k.split(':')[0], tile_y = k.split(':')[1];
             if (tile_x < bounds.min.x || tile_x > bounds.max.x || tile_y < bounds.min.y || tile_y > bounds.max.y) {
                 // Tile is out of bounds (not visible) - skip it.
