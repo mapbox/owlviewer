@@ -1,5 +1,8 @@
 var markers, markersLayer;
 
+var SUMMARY_MIN_SIZE = 64;
+var SUMMARY_MAX_SIZE = 256;
+
 function getSummaryUrl() {
     return $.owlviewer.owl_api_url + 'summary/{z}/{x}/{y}?timelimit=' + getTimelimit();
 }
@@ -46,7 +49,8 @@ function initSummary() {
         // Now add markers with proper sizes..
         _(markers.tiles()).each(function (tile) {
             var cl = getClassNameForSummaryTile(tile.data, minCount, maxCount);
-            var size = parseInt((256 - 96) * (tile.data.num_changesets - minCount) / (maxCount - minCount) + 96);
+            var size = parseInt((SUMMARY_MAX_SIZE - SUMMARY_MIN_SIZE) * (tile.data.num_changesets - minCount) /
+                (maxCount - minCount) + SUMMARY_MIN_SIZE);
             var icon = L.divIcon({
                 html: templates.summarytile({tiledata: tile.data, size: size, divclass: cl}),
                 className: 'summary-tile',
