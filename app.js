@@ -179,9 +179,21 @@ function updateStatusbar(html) {
     $('#statusbar').html(html);
     $('#reset_settings').on('click', function (e) {
         customSettings = false;
-        updateStatusbar(templates.statusbar());
+        updateStatusbarForBrowsing();
         setModeForZoomLevel();
         return false;
+    });
+}
+
+function updateStatusbarForBrowsing() {
+    updateStatusbar(templates.statusbar());
+    $('#status_mode').on('change', function (e) {
+        enableCustomSettings();
+        switchMode($(e.target).val(), false);
+    });
+
+    $('#status_timelimit').on('change', function (e) {
+        switchMode(mode, true);
     });
 }
 
@@ -215,7 +227,7 @@ $(function() {
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    updateStatusbar(templates.statusbar());
+    updateStatusbarForBrowsing();
 
     initGeoJSON();
     initSummary();
@@ -226,15 +238,6 @@ $(function() {
     map.on('zoomend', setModeForZoomLevel);
 
     updateFeedLink();
-
-    $('#status_mode').on('change', function (e) {
-        enableCustomSettings();
-        switchMode($(e.target).val(), false);
-    });
-
-    $('#status_timelimit').on('change', function (e) {
-        switchMode(mode, true);
-    });
 
     // Active state handling.
     $('.nav-container a').click(function() {
