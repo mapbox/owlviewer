@@ -25,14 +25,12 @@ function initSummary() {
         markersLayer.clearLayers();
     });
 
-    markers.on('tileload', function(e) {
-        setChangesetsFromSummaryTiles();
-    });
     markers.on('loading', function(e) {
         $('#changesets').html("<div class='loader'><img src='img/spinner.gif' /></div>");
     });
-    markers.on('load', function(e) {
+    markers.on('tileload', function(e) {
         markersLayer.clearLayers();
+        setChangesetsFromSummaryTiles();
 
         // First, find out min and max changeset counts in current viewport - useful to show relative sizes.
         var minCount = null, maxCount = 0;
