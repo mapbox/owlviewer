@@ -60,6 +60,9 @@ function setChangesetsFromBboxes() {
                     unhighlightChangeset(e.target.options.changeset_id);
                     unhighlightBbox(e.target.options.changeset_id);
                 });
+                layer.on('click', function (e) {
+                    inspectChangeset(e.target.options.changeset_id);
+                });
                 bboxes.push(layer);
             }
         }

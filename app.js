@@ -88,12 +88,16 @@ function updateChangesetList() {
 
     // Click event handling.
     $('.changeset').on('click', function(e) {
-        enableCustomSettings();
         var changeset_id = getChangesetIdFromListElement(e.target);
-        deactivateChangeset(inspectedChangesetId);
-        inspectedChangesetId = changeset_id;
-        switchMode('CHANGESET', true);
+        inspectChangeset(changeset_id);
     });
+}
+
+function inspectChangeset(changeset_id) {
+    enableCustomSettings();
+    deactivateChangeset(inspectedChangesetId);
+    inspectedChangesetId = changeset_id;
+    switchMode('CHANGESET', true);
 }
 
 function highlightChangeset(id) {
