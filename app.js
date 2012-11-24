@@ -34,6 +34,17 @@ function addChangeset(changeset) {
 }
 
 function updateChangesetList() {
+    function getChangesetIdFromListElement(el) {
+        if (el.id.length == 0) {
+            // Try parent element.
+            el = el.parentElement;
+            if (el.id.length == 0) {
+                return null;
+            }
+        }
+        return parseInt(el.id.split('-')[1]);
+    }
+
     $('#changesets').empty();
     _(changesets)
         .chain()
@@ -48,21 +59,13 @@ function updateChangesetList() {
             $('#changesets').append(templates.changeset(p));
         });
     $('.changeset').hover(function(e) {
-        if (e.target.id.length == 0) {
-            // Not a changeset list element!?
-            return;
-        }
-        var changeset_id = e.target.id.split('-')[1];
+        var changeset_id = getChangesetIdFromListElement(e.target);
         highlightGeoJSON(changeset_id);
         highlightBbox(changeset_id);
         //var details_el = $(e.target).children('div[class=stats]');
         //e.type == "mouseenter" ? details_el.show() : details_el.hide();
     }, function(e) {
-        if (e.target.id.length == 0) {
-            // Not a changeset list element!?
-            return;
-        }
-        var changeset_id = e.target.id.split('-')[1];
+        var changeset_id = getChangesetIdFromListElement(e.target);
         unhighlightGeoJSON(changeset_id);
         unhighlightBbox(changeset_id);
     });
