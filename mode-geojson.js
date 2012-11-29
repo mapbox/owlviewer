@@ -65,7 +65,7 @@ function initGeoJSON() {
 }
 
 function enableMode_GeoJSON() {
-    markers.setUrl(getGeoJSONUrl(), true);
+    geoJSON.setUrl(getGeoJSONUrl(), true);
     !map.hasLayer(geoJSONLayer) && map.addLayer(geoJSONLayer);
     !map.hasLayer(geoJSON) && map.addLayer(geoJSON);
 }
