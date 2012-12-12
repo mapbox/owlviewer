@@ -4,6 +4,10 @@ function getGeoJSONUrl() {
     return $.owlviewer.owl_api_url + 'changesets/{z}/{x}/{y}.geojson?timelimit=' + getTimelimit();
 }
 
+function getChangesetIdFromFeatureId(feature_id) {
+    return parseInt(feature_id.split("_")[0]);
+}
+
 function initGeoJSON() {
     // Add GeoJSON feature layer
     L.ExtendedGeoJSON = L.GeoJSON.extend({
@@ -41,11 +45,11 @@ function initGeoJSON() {
                     "opacity": 0.05,
                     "fillOpacity": 0.05
                 });
-                highlightChangeset(feature.properties.id);
+                highlightChangeset(getChangesetIdFromFeatureId(feature.id));
             });
             layer.on('mouseout', function() {
                 layer.setStyle(geoJSONStyle);
-                unhighlightChangeset(feature.properties.id);
+                unhighlightChangeset(getChangesetIdFromFeatureId(feature.id));
             });
         }
     });
@@ -59,8 +63,13 @@ function initGeoJSON() {
     geoJSON.on('load', function(e) {
         // Add data to geoJSON layer and populate changeset list
         var data = geoJSON.data();
-        geoJSONLayer.addData(data);
-        setChangesetsFromGeoJSON();
+        $.each(data, function(i, tile_data) {
+            $.each(tile_data.features, function(j, changeset) {
+                geoJSONLayer.addData(changeset.features);
+                addChangeset(changeset.properties);
+            });
+        });
+        updateChangesetList();
     });
 }
 
@@ -73,20 +82,6 @@ function enableMode_GeoJSON() {
 function disableMode_GeoJSON() {
     map.removeLayer(geoJSON);
     map.removeLayer(geoJSONLayer);
-}
-
-// Extracts changesets from the GeoJSON layer.
-function setChangesetsFromGeoJSON() {
-    var geojson = geoJSON.data();
-    changesets = [];
-    for (k in geojson) {
-        if (geojson[k]) {
-            for (j in geojson[k].features) {
-                addChangeset(geojson[k].features[j].properties);
-            }
-        }
-    }
-    updateChangesetList();
 }
 
 // Highlights all features for given changeset.
